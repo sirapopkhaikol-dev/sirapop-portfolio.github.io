@@ -1,0 +1,77 @@
+.sky {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  background:
+    radial-gradient(ellipse at 62% 37%, #1a1d15 0%, transparent 64%),
+    #10130f;
+}
+
+.plate {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.grid {
+  fill: none;
+  stroke: #a8b587;
+  stroke-opacity: .115;
+  stroke-width: .72;
+}
+
+.dust {
+  fill: none;
+  stroke: #ccceab;
+  stroke-opacity: .26;
+  stroke-width: .67;
+  stroke-linecap: round;
+}
+
+.ticks {
+  position: absolute;
+  inset: 0 13px;
+  color: #a0ad7f36;
+  background:
+    repeating-linear-gradient(to right, currentColor 0 1px, transparent 1px 21px) top left / 100% 3px no-repeat,
+    repeating-linear-gradient(to right, currentColor 0 1px, transparent 1px 105px) top left / 100% 6px no-repeat,
+    repeating-linear-gradient(to right, currentColor 0 1px, transparent 1px 21px) bottom left / 100% 3px no-repeat,
+    repeating-linear-gradient(to right, currentColor 0 1px, transparent 1px 105px) bottom left / 100% 6px no-repeat;
+}
+
+.twinkle {
+  animation: scintillate 8s ease-in-out infinite alternate;
+}
+
+.meteor {
+  opacity: 0;
+  animation: passage 29s linear 5s infinite;
+}
+
+.later {
+  animation-duration: 37s;
+  animation-delay: 18s;
+}
+
+@keyframes scintillate {
+  from { opacity: .38; }
+  to { opacity: 1; }
+}
+
+@keyframes passage {
+  0% { opacity: 0; transform: translate(0, 0); }
+  .55% { opacity: .62; }
+  2.65% { opacity: 0; transform: translate(103px, 37.5px); }
+  100% { opacity: 0; transform: translate(103px, 37.5px); }
+}
+
+.sky[data-animated="false"] .twinkle,
+.sky[data-animated="false"] .meteor {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .twinkle, .meteor { animation: none; }
+}

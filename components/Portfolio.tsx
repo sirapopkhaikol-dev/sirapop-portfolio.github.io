@@ -151,7 +151,7 @@ export default function Portfolio({ portrait }: { portrait?: string }) {
               </div>}
               {tab === "journey" && <Journey/>}
               {tab === "logic" && <LogicLab/>}
-              {tab === "values" && <Values/>}
+              {tab === "values" && <Values suspended={profileOpen || assistantOpen || mode === "minimized"}/>}
               <div className="editor-status"><div><span><Icon name="branch" size={13}/> main</span><i/><span><span className="status-circle"/> Ready</span></div><div><span>UTF-8</span><i/><span>{tab === "journey" ? "Markdown" : tab === "values" ? "JSON" : "TypeScript"}</span></div></div>
             </div>
           </>}

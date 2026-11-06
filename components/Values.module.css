@@ -4,11 +4,13 @@
   --accent: #c3f76b;
   --frame: #35382f;
   --mono: var(--font-mono, ui-monospace), "Cascadia Code", Consolas, monospace;
-  max-width: 1080px;
+  --sky-play: paused;
+  max-width: 1160px;
   margin: 0 auto;
   padding: clamp(32px, 5vw, 76px) clamp(20px, 4.6vw, 70px);
   color: var(--ink);
 }
+.values[data-moving="true"] { --sky-play: running; }
 
 .values, .values * { box-sizing: border-box; }
 .heading { margin-bottom: clamp(24px, 3vw, 38px); }
@@ -28,14 +30,16 @@
 }
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
   border: 1px solid var(--frame);
   border-radius: 8px;
   overflow: hidden;
 }
 .map {
   position: relative;
-  min-height: 330px;
+  min-height: 380px;
+  overflow: hidden;
+  isolation: isolate;
   background: radial-gradient(ellipse at 52% 47%, #1c2318 0, #141811 40%, #10120f 83%);
 }
 .mapTitle, .motto > span {
@@ -47,9 +51,13 @@
   position: absolute;
   top: 20px;
   left: 21px;
-  z-index: 1;
-  color: #b1baaa;
+  z-index: 2;
+  color: #ced6c4;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
 }
+.mapTitle::before { content: ""; width: 16px; height: 1px; background: #9ebc7c; }
 .sky {
   position: absolute;
   inset: 0;
@@ -57,23 +65,28 @@
   height: 100%;
   pointer-events: none;
 }
-.grid, .skyCrosses, .connection { fill: none; }
-.grid path { stroke: #687461; stroke-width: .6; opacity: .35; vector-effect: non-scaling-stroke; }
-.grid path:first-child { stroke-dasharray: 1 5; }
-.skyCrosses { stroke: #b1bba7; stroke-width: .7; opacity: .6; }
+.sky path { fill: none; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.connectionGlow { stroke: #a4ca77; stroke-width: 4px; opacity: .08; }
 .connection {
-  stroke: #b6d77e;
+  stroke: #b7cf91;
   stroke-width: 1;
-  opacity: .82;
-  vector-effect: non-scaling-stroke;
+  opacity: .69;
 }
+.ambient, .transfer { pointer-events: none; }
+.trail, .beacon, .wake, .ship { opacity: 0; }
+.trail { stroke: #bcde8a; stroke-width: 2; stroke-dasharray: .095 1.905; }
+.beacon { stroke: #f6ffce; stroke-width: 3; stroke-dasharray: .009 1.991; }
+.wake { stroke: #cee8a5; stroke-width: 2.2; stroke-dasharray: .20 1.8; }
+.ship { stroke: #ffffda; stroke-width: 4; stroke-dasharray: .012 1.988; }
+.starGroup { position: absolute; inset: 0; pointer-events: none; }
 .star {
+  pointer-events: auto;
   position: absolute;
   transform: translate(-50%, -22px);
   display: grid;
   justify-items: center;
   align-content: start;
-  gap: 4px;
+  gap: 6px;
   min-width: 60px;
   min-height: 65px;
   padding: 0 4px 3px;
@@ -90,37 +103,80 @@
   width: 44px;
   height: 44px;
 }
-.starMark::before {
+.starMark::after {
   position: absolute;
-  inset: 3px;
+  inset: 4px;
   content: "";
-  border: 1px solid currentColor;
+  background: radial-gradient(circle, #d5ff9d66, #b7e67d1c 37%, transparent 72%);
   border-radius: 50%;
-  opacity: 0;
+  pointer-events: none;
+  opacity: .55;
 }
-.starMark svg {
+.starGlyph {
+  position: relative;
+  z-index: 1;
   width: 20px;
   height: 20px;
   overflow: visible;
   filter: drop-shadow(0 0 4px #a8c16a55);
 }
+.tracker { position: absolute; width: 70px; height: 70px; pointer-events: none; }
+.orbitRing, .pulse { position: absolute; inset: 0; height: 100%; width: 100%; }
+.orbitRing { fill: none; stroke: #bfd79a; stroke-width: .9; }
+.orbitRing circle:nth-child(2) { opacity: .65; }
+.orbitRing .moon { fill: #f5d799; stroke: none; }
+.pulse { border-radius: 50%; border: 1px solid #c4e995; opacity: 0; }
 .starName {
   font: 11px/1.2 var(--mono);
   color: #c3cbbb;
   text-shadow: 0 1px 2px #101210;
 }
 .star[aria-checked="true"] { color: #d8f7a4; }
-.star[aria-checked="true"] .starMark::before { opacity: .65; }
-.star[aria-checked="true"] .starMark svg { width: 29px; height: 29px; }
+.star[aria-checked="true"] .starMark::after { opacity: 1; transform: scale(1.5); }
+.star[aria-checked="true"] .starGlyph { width: 29px; height: 29px; filter: drop-shadow(0 0 7px #bee88c77); }
 .star[aria-checked="true"] .starName { color: var(--accent); }
-.star:hover .starMark::before { opacity: .52; }
+.star:hover .starGlyph { color: #efffc9; }
+.motionToggle {
+  position: absolute; z-index: 2; right: 12px; bottom: 12px; display: flex; align-items: center;
+  gap: 6px; padding: 7px 9px; min-height: 32px; border: 1px solid #434e3b;
+  border-radius: 5px; background: #141a12e8; color: #b9c5ac; font: 10px var(--mono);
+}
+.motionToggle:hover, .motionToggle:focus-visible { border-color: #8caa74; color: #dbf7bd; }
 @media (prefers-reduced-motion: no-preference) {
-  .starMark::before { transition: opacity .2s, transform .25s; transform: scale(.8); }
-  .star[aria-checked="true"] .starMark::before { transform: scale(1); }
-  .starMark svg { transition: width .2s, height .2s, transform .25s; }
-  .star[aria-checked="true"] .starMark svg { transform: rotate(12deg); }
-  .detail > h2, .detail > p { animation: valueIn .26s ease-out; }
-  @keyframes valueIn { from { opacity: .18; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+  .connection { stroke-dasharray: 1; animation: chartEntry 1.1s cubic-bezier(.2,.6,.28,1) both; }
+  .trail, .beacon { animation: signalAlongRoute 5.4s 1s linear infinite; }
+  .trail { --signal-length: .095; --signal-opacity: .68; }
+  .beacon { --signal-length: .009; --signal-opacity: 1; }
+  .wake, .ship { animation: signalToStar .85s cubic-bezier(.32,.02,.27,1) both; }
+  .wake { --signal-length: .2; --signal-opacity: .68; }
+  .ship { --signal-length: .012; --signal-opacity: 1; }
+  .orbitRing { animation: trackOrbit 8s linear infinite; }
+  .pulse { animation: arrivalPulse 2.75s .53s ease-out infinite; }
+  .connection, .trail, .beacon, .wake, .ship, .orbitRing, .pulse { animation-play-state: var(--sky-play); }
+  .values[data-moving="true"] .starGlyph { transition: width .2s, height .2s, transform .3s; }
+  .star[aria-checked="true"] .starGlyph { transform: rotate(12deg); }
+  .values[data-moving="true"] .detail > * { animation: valueIn .32s cubic-bezier(.22,.72,.28,1) backwards; }
+  .values[data-moving="true"] .detail > p { animation-delay: 45ms; }
+  .values[data-moving="true"] .detail > .motto { animation-delay: 90ms; }
+  @keyframes chartEntry { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes signalAlongRoute {
+    0% { opacity: 0; stroke-dashoffset: var(--signal-length); }
+    6% { opacity: var(--signal-opacity); }
+    73% { opacity: var(--signal-opacity); }
+    80%, 100% { opacity: 0; stroke-dashoffset: -1; }
+  }
+  @keyframes signalToStar {
+    0% { opacity: 0; stroke-dashoffset: var(--signal-length); }
+    9%, 85% { opacity: var(--signal-opacity); }
+    100% { opacity: 0; stroke-dashoffset: -1; }
+  }
+  @keyframes trackOrbit { to { transform: rotate(1turn); } }
+  @keyframes arrivalPulse {
+    0% { opacity: 0; transform: scale(.45); }
+    12% { opacity: .65; }
+    72%, 100% { opacity: 0; transform: scale(1.3); }
+  }
+  @keyframes valueIn { from { opacity: .12; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 }
 .star:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .detail {
@@ -174,7 +230,9 @@
 
 @media (max-width: 740px) {
   .layout { grid-template-columns: minmax(0, 1fr); }
-  .map { min-height: 0; height: clamp(235px, 55vw, 310px); }
+  .map { min-height: 0; height: clamp(268px, 60vw, 350px); }
+  .tracker { width: 59px; height: 59px; }
+  .motionToggle { bottom: 8px; right: 8px; }
   .detail { border-left: none; border-top: 1px solid var(--frame); }
   .initial { margin-bottom: 16px; }
 }
