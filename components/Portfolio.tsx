@@ -13,14 +13,14 @@ import ProfileDialog from "./ProfileDialog";
 
 const modules = [
   { id: "journey", title: "My journey", file: "journey.md", description: "From my first line of code to my master’s degree.", icon: "journey" },
-  { id: "logic", title: "Logic lab", file: "logic-lab.ts", description: "See how algorithms think, one step at a time.", icon: "code" },
   { id: "values", title: "STAR values", file: "values.json", description: "Four principles behind how I work and grow.", icon: "star" },
+  { id: "logic", title: "Logic lab", file: "logic-lab.ts", description: "See how algorithms think, one step at a time.", icon: "code" },
 ] as const;
 const tabs = [
   { id: "overview", label: "Overview", file: "profile.tsx" },
   { id: "journey", label: "Journey", file: "journey.md" },
-  { id: "logic", label: "Logic lab", file: "logic-lab.ts" },
   { id: "values", label: "Values", file: "values.json" },
+  { id: "logic", label: "Logic lab", file: "logic-lab.ts" },
 ] as const;
 type TabId = "overview" | ModuleId;
 type WindowMode = "normal" | "expanded" | "minimized" | "closed";

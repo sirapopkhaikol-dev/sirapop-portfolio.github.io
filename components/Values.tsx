@@ -18,7 +18,7 @@ const values = [
   {
     letter: "A", verb: "Act", title: "Act on feedback", x: 62, y: 53,
     description: "I watch where someone hesitates, change that part, and ask them to try it again. Their second attempt tells me whether the change helped.",
-    motto: "Build, learn, improve, repeat.",
+    motto: "Good Code Brighter Tomorrow",
   },
   {
     letter: "R", verb: "Repeat", title: "Repeat with purpose", x: 82, y: 25,

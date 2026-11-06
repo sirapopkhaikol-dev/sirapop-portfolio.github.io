@@ -1,0 +1,30 @@
+.model { container-type: inline-size; border: 1px solid #394432; border-radius: 7px; background: #12160f; overflow: hidden; margin-top: 22px; }
+.tabs { display: flex; border-bottom: 1px solid #35402d; background: #191f15; }
+.tabs button { flex: 1; padding: 13px 9px; font: 11px/1.4 var(--font-mono); background: transparent; color: #a9b79a; border: none; border-bottom: 2px solid transparent; }
+.tabs button[aria-selected="true"] { color: #d0f3a5; border-bottom-color: #b1da7e; background: #202919; }
+.viewport { overflow-x: auto; scrollbar-color: #667d4e #161b12; padding: 19px 8px 12px; background-image: radial-gradient(#43533366 .7px,transparent .7px); background-size: 14px 14px; }
+.chart { display: block; width: 100%; min-width: 480px; }
+.chart text { font: 10.5px var(--font-mono); fill: #c5cfb8; }
+.box rect { fill: #171d13; stroke: #637353; stroke-width: 1; }
+.activeBox rect { fill: #2c3c20; stroke: #c2e397; stroke-width: 1.4; }
+.activeBox text { fill: #ebffd7; }
+.chart [data-warm="true"] rect { stroke: #b8a478; }
+.edges { fill: none; stroke: #758760; stroke-width: 1; color: #9bb681; }
+.signal { fill: none; stroke: #e4f5b3; stroke-width: 1.6; color: #e4f5b3; }
+.training { fill: #24342e; stroke: #537766; stroke-width: .7; }
+.validation { fill: #627c37; stroke: #bdde8c; stroke-width: .7; }
+.chart .foldLabel { font-size: 9px; fill: #edffe0; paint-order: stroke; stroke: #1b281b; stroke-width: 3px; }
+.foldFrame { fill: #141c10; stroke: #738362; stroke-dasharray: 3 4; }
+.steps { display: flex; flex-wrap: wrap; padding: 13px; gap: 7px; border-top: 1px solid #303d27; }
+.steps button { display: flex; align-items: center; gap: 7px; padding: 7px 9px; font: 10px/1.4 var(--font-mono); background: #1b2216; border: 1px solid #445139; border-radius: 4px; color: #bfcbb3; }
+.steps button span { display: grid; place-items: center; width: 16px; height: 16px; border: 1px solid #60744d; border-radius: 50%; font-size: 9px; }
+.steps button[aria-pressed="true"] { color: #def7bd; background: #2b3a1f; border-color: #a7c782; }
+.model .explanation { font-size: 13px; line-height: 1.65; color: #b9c5ad; padding: 0 16px 16px; margin: 0; min-height: 100px; }
+.hint { display: none; padding: 0 14px 10px; color: #98ad87; font: 9px/1.5 var(--font-mono); }
+@container(max-width:500px) { .hint { display: block; } }
+@media(prefers-reduced-motion:no-preference) {
+  .signal path { stroke-dasharray: 1; animation: flow .95s ease-out both; }
+  .activeBox rect { animation: illuminate .7s ease-out; }
+  @keyframes flow { from { stroke-dashoffset: 1; opacity: .2; } to { stroke-dashoffset: 0; opacity: 1; } }
+  @keyframes illuminate { from { fill: #4b5f32; } to { fill: #2c3c20; } }
+}
