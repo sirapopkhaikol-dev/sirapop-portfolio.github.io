@@ -8,7 +8,7 @@ const views = [
     name: "Regional models",
     steps: [
       { name: "Group by area", detail: "Split the data by geography so each model can learn patterns within its own region." },
-      { name: "Train local models", detail: "Train a separate model for each area. North, South, and Bangkok illustrate the regional branches in the model design." },
+      { name: "Train local models", detail: "Train a separate model for each area. North, East, and Bangkok illustrate the regional branches in the model design." },
       { name: "Combine predictions", detail: "Concatenate the predictions from the regional branches into a single prediction set." },
     ],
   },
@@ -57,7 +57,7 @@ export default function ModelDiagram() {
       <svg key={view + "-" + revision} className={styles.chart} viewBox={view === 0 ? "0 0 560 310" : "0 0 560 350"}
         role="img" aria-labelledby={id + "-title " + id + "-desc"}>
         <title id={id + "-title"}>{views[view].name}</title>
-        <desc id={id + "-desc"}>{view === 0 ? "Data is grouped by area, sent to North, South and Bangkok models, then each regional prediction is concatenated into one output." : "Four training and validation folds feed four CatBoost models. Held-out predictions yield a cross-validation AUC score. Test predictions from the models are averaged into the final predictions."}</desc>
+        <desc id={id + "-desc"}>{view === 0 ? "Data is grouped by area, sent to North, East and Bangkok models, then each regional prediction is concatenated into one output." : "Four training and validation folds feed four CatBoost models. Held-out predictions yield a cross-validation AUC score. Test predictions from the models are averaged into the final predictions."}</desc>
         <defs><marker id={marker} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="m1 1 8 4-8 4" fill="none" stroke="currentColor" strokeWidth="1.5"/></marker></defs>
         {view === 0 ? <>
           <g className={styles.edges} markerEnd={"url(#" + marker + ")"}>
@@ -66,7 +66,7 @@ export default function ModelDiagram() {
           <g className={styles.signal} markerEnd={"url(#" + marker + ")"}><path pathLength="1" d={step === 0 ? "M280 46v25" : step === 1 ? "M280 103v19H100v27" : "M100 238v15h180v20"}/></g>
           <Box x={175} y={14} width={210} label="Input data" active={step === 0}/>
           <Box x={175} y={71} width={210} label="Group by area" active={step === 0}/>
-          {["North", "South", "Bangkok"].map((area, i) => <g key={area}>
+          {["North", "East", "Bangkok"].map((area, i) => <g key={area}>
             <Box x={32+i*180} y={149} width={136} label={area + " model"} active={step === 1}/>
             <Box x={32+i*180} y={206} width={136} label={area + " predictions"} active={step === 2}/>
           </g>)}

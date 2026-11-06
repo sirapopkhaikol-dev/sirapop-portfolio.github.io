@@ -1,0 +1,55 @@
+.chapter { color: #eff0e9; }
+.eyebrow { display: flex; align-items: center; gap: 8px; color: #b6cb9b; font: 10px/1.5 var(--font-mono); letter-spacing: .04em; margin-bottom: 12px; }
+.chapter > h2 { font-size: clamp(32px,4vw,50px); max-width: 16ch; margin: 0 0 17px; }
+.chapter > h2 span { color: #c3f76b; }
+.employers { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-block: 24px; }
+.employers button { display: flex; align-items: flex-start; gap: 10px; padding: 15px 12px; text-align: left; border: 1px solid #414e37; border-radius: 6px; background: #181f14; color: #aebba2; }
+.employers button > svg { flex: none; margin-top: 3px; color: #b4cf93; }
+.employers strong { display: block; font-size: 16px; font-weight: 550; line-height: 1.4; letter-spacing: -.025em; }
+.employers small { display: block; font: 9px/1.7 var(--font-mono); color: #a1b191; margin-top: 4px; }
+.employers button[aria-selected="true"] { color: #ecffd9; border-color: #afd581; background: #24361a; }
+.dates { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; color: #cadbb8; font: 10px/1.7 var(--font-mono); padding-bottom: 14px; border-bottom: 1px solid #3a472f; margin-bottom: 21px; }
+.dates > span { flex-basis: 100%; color: #a5ba92; }
+.chapter h3 { font-size: 22px; line-height: 1.25; font-weight: 550; letter-spacing: -.035em; margin: 0 0 13px; }
+.evidence { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-block: 24px; }
+.media { display: block; width: 100%; min-width: 0; text-align: left; padding: 0; border: none; color: #b4c5a7; background: transparent; }
+.media > img { display: block; width: 100%; aspect-ratio: 3/4; object-fit: contain; border: 1px solid #4a573e; border-radius: 5px; background: #12160f; }
+.media > span { display: flex; align-items: center; justify-content: space-between; gap: 7px; font: 10px/1.5 var(--font-mono); padding-top: 9px; }
+.media > span svg { flex: none; }
+.media:hover > img { border-color: #b0d884; }
+.employer[data-company="1"] .media > img { aspect-ratio: 1.35; }
+.sectionTitle { display: flex; align-items: center; gap: 11px; margin-top: 30px; margin-bottom: 12px; }
+.sectionTitle > svg { color: #b7da90; flex: none; }
+.sectionTitle h3 { margin: 0; font-size: 21px; }
+.chapter .note { font-size: 12px; line-height: 1.7; color: #a8b89b; }
+.note a { color: #c8dea8; text-decoration: underline; text-underline-offset: 3px; }
+.showcase { margin-block: 24px; padding: 10px; background: #151c11; border: 1px solid #38482c; border-radius: 7px; }
+.screen { width: 100%; border: none; padding: 0; text-align: left; color: #d8ecc4; background: transparent; }
+.screen > img { width: 100%; height: auto; display: block; aspect-ratio: 2.09; object-fit: contain; border-radius: 3px; background: #eaf0f7; }
+.screen > span { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 15px; padding: 12px 3px; letter-spacing: -.02em; }
+.screenNav { display: flex; gap: 5px; flex-wrap: wrap; padding-bottom: 10px; }
+.screenNav button { padding: 6px 8px; border: 1px solid #425d32; border-radius: 4px; background: #1c2a14; color: #b8cda7; font: 9px/1.5 var(--font-mono); }
+.screenNav button[aria-pressed="true"] { border-color: #badf95; background: #344b23; color: #eaffd7; }
+.chapter .showcase > p { font-size: 10px; margin: 0; padding: 0 3px 2px; }
+.reference { color: #aabc9b; border-block: 1px solid #35472a; margin-block: 20px; padding-block: 11px; }
+.reference summary { font: 11px/1.7 var(--font-mono); cursor: pointer; }
+.reference .media { margin-top: 15px; }
+.reference .media > img { aspect-ratio: 2.35; background: white; }
+.reflection { display: flex; gap: 15px; border-top: 1px solid #435536; padding-top: 25px; margin-top: 30px; }
+.reflection > svg { flex: none; color: #d8cf9e; margin-top: 3px; }
+.reflection h3 { font-size: 22px; }
+@media(max-width:450px) {
+  .employers { gap: 7px; }
+  .employers button { padding: 12px 9px; gap: 6px; }
+  .employers strong { font-size: 14px; }
+  .employers small { font-size: 8px; }
+  .employers button > svg { width: 15px; }
+  .evidence { gap: 10px; }
+  .media > span { font-size: 9px; }
+  .chapter h3 { font-size: 21px; }
+}
+@media(prefers-reduced-motion:no-preference) {
+  .employer { animation: appear .28s ease-out; }
+  .screen img { animation: appear .25s ease-out; }
+  @keyframes appear { from { opacity: .25; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+}

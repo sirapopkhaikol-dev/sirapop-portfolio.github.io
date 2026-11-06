@@ -3,6 +3,7 @@
 import { useId, useRef, useState, type KeyboardEvent } from "react";
 import styles from "./Journey.module.css";
 import Hackathon from "./Hackathon";
+import Internships from "./Internships";
 
 type Milestone = {
   title: string;
@@ -111,7 +112,7 @@ export default function Journey() {
           <article key={entry.title} id={`${prefix}-story-${index}`} role="tabpanel"
             aria-labelledby={`${prefix}-tab-${index}`} className={styles.story}
             hidden={index !== selected} tabIndex={0}>
-            {index === selected && (index === 1 ? <Hackathon/> : <>
+            {index === selected && (index === 1 ? <Hackathon/> : index === 2 ? <Internships/> : <>
               <h2>{milestone.title}</h2>
               <p>{milestone.reflection}</p>
               <p>{milestone.takeaway}</p>
