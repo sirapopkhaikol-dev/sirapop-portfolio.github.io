@@ -28,7 +28,8 @@
 .screen > img { width: 100%; height: auto; display: block; aspect-ratio: 2.09; object-fit: contain; border-radius: 3px; background: #eaf0f7; }
 .screen > span { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 15px; padding: 12px 3px; letter-spacing: -.02em; }
 .screenNav { display: flex; gap: 5px; flex-wrap: wrap; padding-bottom: 10px; }
-.screenNav button { padding: 6px 8px; border: 1px solid #425d32; border-radius: 4px; background: #1c2a14; color: #b8cda7; font: 9px/1.5 var(--font-mono); }
+.screenNav button { display: inline-flex; align-items: center; gap: 7px; padding: 6px 8px; border: 1px solid #425d32; border-radius: 4px; background: #1c2a14; color: #b8cda7; font: 9px/1.5 var(--font-mono); }
+.screenNav button span { display: grid; place-items: center; flex: 0 0 16px; width: 16px; height: 16px; border: 1px solid #667f50; border-radius: 50%; color: #d3edb9; font-size: 9px; }
 .screenNav button[aria-pressed="true"] { border-color: #badf95; background: #344b23; color: #eaffd7; }
 .chapter .showcase > p { font-size: 10px; margin: 0; padding: 0 3px 2px; }
 .reference { color: #aabc9b; border-block: 1px solid #35472a; margin-block: 20px; padding-block: 11px; }

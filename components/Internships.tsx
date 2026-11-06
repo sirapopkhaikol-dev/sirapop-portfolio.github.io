@@ -71,7 +71,7 @@ export default function Internships() {
             <img key={screen} src={screens[screen].src} alt={screens[screen].alt} loading="lazy"/>
             <span>{screens[screen].label}<Icon name="upRight" size={14}/></span>
           </button>
-          <div className={styles.screenNav} role="group" aria-label="Dashboard views">{screens.map((item,index)=><button type="button" key={item.src} aria-pressed={screen===index} onClick={()=>setScreen(index)}>{item.label}</button>)}</div>
+          <div className={styles.screenNav} role="group" aria-label="Dashboard views">{screens.map((item,index)=><button type="button" key={item.src} aria-pressed={screen===index} onClick={()=>setScreen(index)}><span>{index+1}</span> {item.label}</button>)}</div>
           <p className={styles.note}>Project screenshots supplied with confidential values censored.</p>
         </div>
         <div className={styles.sectionTitle}><Icon name="branch" size={21}/><h3>Follow a machine update</h3></div>

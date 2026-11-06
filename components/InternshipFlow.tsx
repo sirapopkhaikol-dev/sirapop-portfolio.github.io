@@ -98,7 +98,7 @@ export default function InternshipFlow({ kind }: { kind: "migration" | "stream" 
       </div>
       <div className={styles.steps} role="group" aria-label="Explore the live data flow">
         {streamSteps.map((item,index)=><button type="button" key={item.name} aria-pressed={step===index}
-          onClick={()=>{setStep(index);setRevision(value=>value+1);}}>{item.name}</button>)}
+          onClick={()=>{setStep(index);setRevision(value=>value+1);}}><span>{index+1}</span> {item.name}</button>)}
       </div>
       <p key={step} className={styles.explanation} aria-live="polite">{streamSteps[step].detail}</p>
       <div className={styles.sources}><a href="https://redis.io/docs/latest/develop/use-cases/pub-sub/" target="_blank" rel="noreferrer">Redis Pub/Sub ↗</a><a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events" target="_blank" rel="noreferrer">SSE ↗</a></div>

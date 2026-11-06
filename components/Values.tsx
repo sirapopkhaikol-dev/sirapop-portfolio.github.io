@@ -13,7 +13,7 @@ const values = [
   {
     letter: "T", verb: "Test", title: "Test ideas", x: 39, y: 34,
     description: "I build the smallest version that can answer my question. Trying it with real inputs shows me which of my assumptions hold up.",
-    motto: "Ideals don’t work until you do.",
+    motto: "Ideals Don’t Work Until You Do.",
   },
   {
     letter: "A", verb: "Act", title: "Act on feedback", x: 62, y: 53,
@@ -23,7 +23,7 @@ const values = [
   {
     letter: "R", verb: "Repeat", title: "Repeat with purpose", x: 82, y: 25,
     description: "At the end of a round, I write down what got easier and what still takes effort. I use that note to choose the next improvement.",
-    motto: "Build, learn, improve, repeat.",
+    motto: "Build, Learn, Improve, Repeat.",
   },
 ];
 
