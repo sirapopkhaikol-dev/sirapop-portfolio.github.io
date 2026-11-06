@@ -10,7 +10,7 @@ Run `npm run typecheck` to check TypeScript. Run `npm run build` to generate a s
 
 ## Personalize
 
-- Place your photo in `public/portrait.webp`, `public/portrait.jpg`, `public/portrait.jpeg`, or `public/portrait.png` and rebuild. The site automatically uses it in the header and a light portrait frame over the orbital illustration. Both preserve its aspect ratio.
+- Place your photo in `public/portrait.webp`, `public/portrait.jpg`, `public/portrait.jpeg`, or `public/portrait.png` and rebuild. Selecting the photo in the header opens the full portrait and a short introduction. Edit that introduction in `components/ProfileDialog.tsx`.
 - Edit the milestone reflections in `components/Journey.tsx`. They are suggested copy based on the milestone outline. The two stock photographs are labeled illustrative and can be replaced with personal photos.
 - Edit the principles and mottos in `components/Values.tsx`. Update the corresponding local replies in `components/Assistant.tsx` if you change your biography or values.
 

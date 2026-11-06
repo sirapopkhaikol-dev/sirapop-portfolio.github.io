@@ -186,6 +186,8 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .dialog[open] { animation: appear .18s ease-out; }
+  .question { animation: appear .18s ease-out both; }
+  .answer { animation: appear .25s .1s ease-out both; }
   @keyframes appear {
     from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }

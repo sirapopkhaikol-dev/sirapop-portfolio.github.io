@@ -103,8 +103,8 @@ export default function Values() {
         </div>
         <article id="selected-value" className={styles.detail} aria-live="polite" aria-atomic="true">
           <span className={styles.initial} aria-hidden="true">{current.letter}</span>
-          <h2>{current.title}<span>.</span></h2>
-          <p>{current.description}</p>
+          <h2 key={current.letter + "-title"}>{current.title}<span>.</span></h2>
+          <p key={current.letter + "-description"}>{current.description}</p>
           <div className={styles.motto}>
             <span>Personal motto</span>
             <blockquote>“{current.motto}”</blockquote>

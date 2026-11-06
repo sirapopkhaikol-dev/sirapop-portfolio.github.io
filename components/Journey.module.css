@@ -160,3 +160,24 @@
 @media (prefers-reduced-motion: reduce) {
   .timeline button { transition: none; }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .timeline i { transition: background-color 180ms, box-shadow 250ms ease-out; }
+  .story:not([hidden]) > * { animation: milestoneIn 320ms cubic-bezier(.2,.65,.2,1) backwards; }
+  .story p { animation-delay: 35ms; }
+  .story figure { animation-delay: 70ms; }
+  .diagramSteps li::after {
+    transform-origin: left;
+    animation: connectSteps 390ms 140ms ease-out backwards;
+  }
+  .diagramSteps li:nth-child(2)::after { animation-delay: 235ms; }
+
+  @keyframes milestoneIn {
+    from { opacity: .1; transform: translateY(7px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes connectSteps {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+}

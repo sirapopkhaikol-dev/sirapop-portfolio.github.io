@@ -114,6 +114,14 @@
 .star[aria-checked="true"] .starMark svg { width: 29px; height: 29px; }
 .star[aria-checked="true"] .starName { color: var(--accent); }
 .star:hover .starMark::before { opacity: .52; }
+@media (prefers-reduced-motion: no-preference) {
+  .starMark::before { transition: opacity .2s, transform .25s; transform: scale(.8); }
+  .star[aria-checked="true"] .starMark::before { transform: scale(1); }
+  .starMark svg { transition: width .2s, height .2s, transform .25s; }
+  .star[aria-checked="true"] .starMark svg { transform: rotate(12deg); }
+  .detail > h2, .detail > p { animation: valueIn .26s ease-out; }
+  @keyframes valueIn { from { opacity: .18; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+}
 .star:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .detail {
   display: flex;

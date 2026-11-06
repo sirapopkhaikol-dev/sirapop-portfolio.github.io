@@ -1,0 +1,33 @@
+.trace {
+  opacity: 0;
+  stroke: #fff7dd;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bar, .stop, .spark { transform-box: fill-box; }
+  .bar { transform-origin: center bottom; }
+  .stop, .spark { transform-origin: center; }
+
+  a:is(:hover, :focus-visible) .trace { animation: traceRoute 560ms ease-out both; }
+  a:is(:hover, :focus-visible) .stop { animation: lightStop 310ms ease-out; }
+  a:is(:hover, :focus-visible) .bar { animation: barWave 540ms cubic-bezier(.4, 0, .2, 1); }
+  a:is(:hover, :focus-visible) .spark { animation: starLight 480ms ease-out; }
+
+  @keyframes traceRoute {
+    from { opacity: .95; stroke-dashoffset: 1; }
+    75% { opacity: .95; }
+    to { opacity: .32; stroke-dashoffset: 0; }
+  }
+  @keyframes lightStop {
+    42% { transform: scale(1.4); stroke: #fbf0ff; }
+  }
+  @keyframes barWave {
+    34% { transform: scaleY(.58); }
+    72% { transform: scaleY(1.08); stroke: #f0ffd2; }
+  }
+  @keyframes starLight {
+    38% { transform: rotate(24deg) scale(1.6); fill: #fff8d7; }
+  }
+}
