@@ -32,6 +32,9 @@ export default function MoneyMonkey() {
     <h2>MoneyMonkey<span>.</span></h2>
     <div className={styles.context}><span>7-person team</span><i/><span>Full Stack Developer</span></div>
     <p>MoneyMonkey is a web application that uses AI to estimate future inflation and presents the results through a website. Users can enter an amount and a time horizon to explore what inflation could mean for their money over time.</p>
+    <a className={`primary-button ${styles.visit}`} href="https://moneymonkey.trade/" target="_blank" rel="noopener noreferrer" aria-label="Visit MoneyMonkey (opens in a new tab)">
+      Visit MoneyMonkey <Icon name="upRight" size={16}/>
+    </a>
     <div className={gallery.showcase}>
       <button type="button" className={gallery.screen} aria-label={"Enlarge "+screens[screen].label} aria-haspopup="dialog" onClick={()=>setImage(screens[screen])}>
         <img key={screen} className={styles.projectImage} src={screens[screen].src} alt={screens[screen].alt} loading="lazy"/>
