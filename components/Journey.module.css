@@ -1,0 +1,162 @@
+.journey {
+  --journey-ink: #eff0e9;
+  --journey-muted: #a9afa1;
+  --journey-line: #30342d;
+  --journey-lime: #c3f76b;
+  --journey-mono: var(--font-mono, ui-monospace), "Cascadia Code", Consolas, monospace;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: clamp(32px, 5vw, 76px) clamp(20px, 4.6vw, 70px);
+  color: var(--journey-ink);
+}
+.journey *, .journey { box-sizing: border-box; }
+.journey h1 {
+  margin: 0 0 clamp(27px, 3.7vw, 50px);
+  font-family: inherit;
+  font-size: clamp(44px, 6vw, 78px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -.065em;
+}
+.journey h1 span { color: var(--journey-lime); }
+.layout {
+  display: grid;
+  grid-template-columns: minmax(140px, .67fr) minmax(0, 1.65fr);
+  gap: clamp(16px, 3.4vw, 46px);
+  padding-top: clamp(18px, 2.2vw, 30px);
+  border-top: 1px solid var(--journey-line);
+  align-items: start;
+}
+.timeline {
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+}
+.timeline button {
+  position: relative;
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  padding: 13px 5px 13px 3px;
+  min-height: 48px;
+  font: inherit;
+  font-size: clamp(13px, 1.2vw, 15px);
+  line-height: 1.3;
+  text-align: left;
+  background: transparent;
+  color: var(--journey-muted);
+  border: 0;
+  cursor: pointer;
+  transition: color .15s;
+}
+.timeline button::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 7px;
+  inset-block: 0;
+  border-left: 1px solid #444a3d;
+}
+.timeline button:first-child::before { top: 50%; }
+.timeline button:last-child::before { bottom: 50%; }
+.timeline i {
+  flex: 0 0 9px;
+  height: 9px;
+  background: #161914;
+  border: 1px solid #68725e;
+  border-radius: 50%;
+}
+.timeline button[aria-selected="true"] { color: var(--journey-lime); font-weight: 600; }
+.timeline button[aria-selected="true"] i { background: var(--journey-lime); border-color: var(--journey-lime); box-shadow: 0 0 0 3px #2b3522; }
+.timeline button:hover { color: var(--journey-ink); }
+.timeline button:focus-visible, .story:focus-visible { outline: 2px solid var(--journey-lime); outline-offset: 3px; }
+.story { min-width: 0; }
+.story[hidden] { display: none; }
+.story h2 {
+  max-width: 20ch;
+  margin: 5px 0 17px;
+  font-family: inherit;
+  color: var(--journey-ink);
+  font-size: clamp(26px, 3.1vw, 44px);
+  letter-spacing: -.05em;
+  line-height: 1.08;
+  font-weight: 550;
+}
+.story p {
+  max-width: 62ch;
+  margin: 0 0 12px;
+  color: #bec4b7;
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.65;
+}
+.photograph, .diagram { margin: 25px 0 0; }
+.photograph img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2.25;
+  object-fit: cover;
+  border: 1px solid var(--journey-line);
+  border-radius: 5px;
+  filter: saturate(.75);
+}
+.photograph figcaption {
+  padding-top: 8px;
+  font: 10px/1.55 var(--journey-mono);
+  letter-spacing: .025em;
+  color: var(--journey-muted);
+}
+.photograph figcaption span { color: #747d69; padding: 0 4px; }
+.diagram {
+  display: grid;
+  align-items: center;
+  min-height: 158px;
+  padding: 22px clamp(12px, 2vw, 26px);
+  border: 1px solid var(--journey-line);
+  border-radius: 5px;
+  background-color: #151912;
+  background-image: radial-gradient(#333a2c 1px, transparent 1px);
+  background-size: 13px 13px;
+}
+.diagramSteps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.diagramSteps li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  color: var(--journey-lime);
+}
+.diagramSteps li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: calc(50% + 21px);
+  width: calc(100% - 24px);
+  border-top: 1px dashed #687e50;
+}
+.diagramSteps span { color: #d1dbc6; font: 11px/1.4 var(--journey-mono); }
+
+@media (max-width: 700px) {
+  .journey { padding: 30px 18px; }
+  .journey h1 { font-size: 46px; }
+  .layout { grid-template-columns: 1fr; gap: 23px; padding-top: 14px; }
+  .timeline { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 8px; }
+  .timeline button { min-height: 42px; gap: 8px; padding: 7px 5px; }
+  .timeline button::before { display: none; }
+  .timeline i { flex-basis: 7px; height: 7px; }
+  .story { border-top: 1px solid var(--journey-line); padding-top: 19px; }
+  .story h2 { margin: 0 0 13px; }
+  .photograph, .diagram { margin-top: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .timeline button { transition: none; }
+}
