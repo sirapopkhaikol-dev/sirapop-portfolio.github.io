@@ -40,3 +40,10 @@ The workflow in `.github/workflows/pages.yml` checks and builds the static site,
 The workflow reads the hosting subdirectory from GitHub Pages and sets `NEXT_PUBLIC_BASE_PATH` for the build. Assets, navigation, galleries, and the PDF download use the shared `components/sitePath.ts` helper. Local development and other root-domain hosting leave this value empty.
 
 For this repository the site address is https://sirapopkhaikol-dev.github.io/sirapop-portfolio.github.io/ . The latest deployment can be checked in the repository's Actions tab. Run `npm run test:paths` to check hosting-path behavior.
+
+
+## Optional ambient music
+
+The navbar player uses “Floating in Space” by Umplix, published under CC0 1.0 at https://opengameart.org/content/floating-in-space . Artist, source, license, source hash, and conversion notes are recorded in `public/audio/CREDITS.txt`.
+
+Playback is off by default and starts only after an explicit Play click. Audio is loaded on demand, initially at 12% volume. The loop continues through in-app section navigation; a full reload starts silent again. Visitors can pause it or change the volume. Edit `components/AmbientMusic.tsx` to change the player.

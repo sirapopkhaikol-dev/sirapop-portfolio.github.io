@@ -13,6 +13,7 @@ import OrbitalScene from "./OrbitalScene";
 import ProfileDialog from "./ProfileDialog";
 import Contact from "./Contact";
 import Resume from "./Resume";
+import AmbientMusic from "./AmbientMusic";
 
 const modules = [
   { id: "journey", title: "My journey", file: "journey.md", description: "From my first line of code to my master’s degree.", icon: "journey" },
@@ -128,7 +129,7 @@ export default function Portfolio({ portrait, initialTab = "overview" }: { portr
           </a>
         </div>
         <nav aria-label="Portfolio sections">{tabs.map((item) => <a key={item.id} href={tabHref(item.id)} aria-current={tab === item.id ? "page" : undefined} onClick={(e) => { e.preventDefault(); navigate(item.id); }}>{item.label}</a>)}</nav>
-        <button type="button" className="top-chat" onClick={() => setAssistantOpen(true)}><Icon name="bot" size={17}/><span>Ask assistant</span><Icon name="upRight" size={13}/></button>
+        <div className="header-tools"><AmbientMusic/><button type="button" className="top-chat" aria-label="Ask assistant" onClick={() => setAssistantOpen(true)}><Icon name="bot" size={17}/><span>Ask assistant</span><Icon name="upRight" size={13}/></button></div>
       </div></header>
       <main className="page-body">
         <section ref={windowRef} id="editor" tabIndex={-1} aria-label={`${tab} editor`} className={`editor ${mode}`}>

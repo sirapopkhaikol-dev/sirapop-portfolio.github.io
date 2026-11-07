@@ -1,0 +1,10 @@
+Floating in Space — Umplix
+Source: https://opengameart.org/content/floating-in-space
+Original download: https://opengameart.org/sites/default/files/empty_space.wav
+License: CC0 1.0 Universal (public-domain dedication)
+License deed: https://creativecommons.org/publicdomain/zero/1.0/
+Legal code: https://creativecommons.org/publicdomain/zero/1.0/legalcode
+Retrieved: 2026-11-07
+The creator lists this work as CC0. Their attribution note says credit is optional; the portfolio credits Umplix voluntarily.
+Adaptation: converted from 44.1 kHz stereo to 22.05 kHz mono PCM, with short fades at both ends for gentle looping. No other music or samples were added.
+Original SHA-256: 1faf12617cc77fe277c9de8ea014b2f967c08335138b4c2e4d4d3f104e73df7d
