@@ -1,10 +1,18 @@
 "use client";
 
-import { useId, useRef, useState, type KeyboardEvent } from "react";
+import { useId, useRef, useState, type ComponentType, type KeyboardEvent } from "react";
 import styles from "./Journey.module.css";
 import Hackathon from "./Hackathon";
 import Internships from "./Internships";
 import MoneyMonkey from "./MoneyMonkey";
+import Bachelors from "./Bachelors";
+
+const detailedChapters: Record<string, ComponentType | undefined> = {
+  Hackathon,
+  Internship: Internships,
+  Projects: MoneyMonkey,
+  "Bachelor’s degree": Bachelors,
+};
 
 type Milestone = {
   title: string;
@@ -77,6 +85,7 @@ export default function Journey() {
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const prefix = useId();
   const milestone = milestones[selected];
+  const Chapter = detailedChapters[milestone.title];
 
   function navigate(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     let next: number;
@@ -113,7 +122,7 @@ export default function Journey() {
           <article key={entry.title} id={`${prefix}-story-${index}`} role="tabpanel"
             aria-labelledby={`${prefix}-tab-${index}`} className={styles.story}
             hidden={index !== selected} tabIndex={0}>
-            {index === selected && (index === 1 ? <Hackathon/> : index === 2 ? <Internships/> : index === 3 ? <MoneyMonkey/> : <>
+            {index === selected && (Chapter ? <Chapter/> : <>
               <h2>{milestone.title}</h2>
               <p>{milestone.reflection}</p>
               <p>{milestone.takeaway}</p>

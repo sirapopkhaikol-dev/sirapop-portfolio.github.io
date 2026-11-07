@@ -1,6 +1,11 @@
 import type { ReactNode } from "react";
 
 const paths: Record<string, ReactNode> = {
+  sensor: <><circle cx="12" cy="12" r="3"/><path d="M7 7a7 7 0 0 0 0 10m10-10a7 7 0 0 1 0 10M3.5 3.5a12 12 0 0 0 0 17m17-17a12 12 0 0 1 0 17M12 15v6m-4 0h8"/></>,
+  database: <><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 4 18 4 18 0V5M3 12c0 4 18 4 18 0"/></>,
+  neural: <><circle cx="4" cy="5" r="2"/><circle cx="4" cy="19" r="2"/><circle cx="12" cy="9" r="2"/><circle cx="12" cy="17" r="2"/><circle cx="20" cy="5" r="2"/><circle cx="20" cy="19" r="2"/><path d="m6 6 4 2m-4 9 4-7m-4 9 4-2m4-7 4 7m-4-1 4-9m-4 11 4 1"/></>,
+  network: <><rect x="8" y="2" width="8" height="6" rx="1"/><rect x="2" y="17" width="8" height="5" rx="1"/><rect x="14" y="17" width="8" height="5" rx="1"/><path d="M12 8v5M6 17v-4h12v4"/></>,
+  shield: <><path d="m12 2 9 4v6c0 5-9 10-9 10S3 17 3 12V6Z"/><path d="m8 12 3 3 5-6"/></>,
   terminal: <><path d="m5 6 6 6-6 6m8 0h6" /></>,
   code: <><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16" /></>,
   file: <><path d="M5 3h10l4 4v14H5zM14 3v5h5m-11 5h8m-8 3h6" /></>,

@@ -1,0 +1,56 @@
+.map { border: 1px solid #415332; border-radius: 8px; overflow: hidden; background: #12190e; margin: 23px 0 0; }
+.title { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 14px 15px; color: #d7edc1; background: #1c2815; font: 11px/1.6 var(--font-mono); border-bottom: 1px solid #3a4e2c; }
+.title > span { margin-left: auto; color: #a2b98c; font-size: 8px; letter-spacing: .07em; }
+.map .instruction { color: #a8bd96; font: 10px/1.6 var(--font-mono); padding: 14px 16px 0; margin: 0; }
+.graph { padding: 18px 15px 17px; background-image: radial-gradient(#465e3766 .7px,transparent .7px); background-size: 14px 14px; }
+.row { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 26px; position: relative; }
+.node { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; min-height: 147px; padding: 25px 9px 16px; border: 1px solid #536e3d; border-radius: 6px; background: #1b2713; color: #afca95; text-align: center; transition: border-color .18s, background-color .18s; }
+.node > svg { flex: none; }
+.node strong { color: #d9e9ca; font: 11px/1.5 var(--font-mono); font-weight: 500; }
+.node small { color: #9eb48a; font: 9px/1.55 var(--font-mono); }
+.node[aria-checked="true"] { border-color: #c4ec9c; background: #2e461e; color: #e1ffc3; box-shadow: inset 0 0 22px #b4dd7d08; }
+.node[aria-checked="true"] strong { color: #eeffdf; }
+.node:hover { border-color: #adcc8b; }
+.number, .detailHeading > span { display: grid; place-items: center; width: 21px; height: 21px; border: 1px solid #6f8a54; border-radius: 50%; color: #d5ecb7; font: 10px var(--font-mono); }
+.number { position: absolute; top: 8px; left: 8px; }
+.node[aria-checked="true"] .number { border-color: #c4df9f; background: #354e24; }
+.horizontalArrow { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); color: #adc891; font: 20px/1 var(--font-mono); pointer-events: none; }
+.junction { display: block; width: 100%; height: 48px; overflow: visible; }
+.junction path { fill: none; stroke: #7c9b60; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.junction .trace { stroke: #e3ffc1; stroke-width: 2; opacity: 0; }
+.junction .trace[data-visible="true"] { opacity: 1; }
+.supportConnector { display: flex; align-items: center; justify-content: center; gap: 12px; height: 49px; }
+.supportConnector span { color: #9fb88a; font: 9px/1.5 var(--font-mono); text-align: center; }
+.supportConnector i { border-left: 1px dashed #7f9e64; height: 26px; }
+.support { padding: 12px; border: 1px dashed #536d3d; border-radius: 7px; background: #1a241155; }
+.support .node { min-height: 136px; }
+.detail { padding: 20px 17px; background: #182112; border-top: 1px solid #405630; }
+.detailContent { min-height: 204px; }
+.detailHeading { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.detailHeading > span { flex: none; }
+.detailHeading h4 { margin: 0; color: #deefcd; font-size: 20px; font-weight: 550; letter-spacing: -.03em; }
+.map .detail p { color: #bacdab; font-size: 14px; line-height: 1.7; margin: 0 0 15px; }
+.detail ul { display: flex; flex-wrap: wrap; gap: 7px; padding: 0; margin: 0; list-style: none; }
+.detail li { border-left: 2px solid #7f9d5f; padding: 3px 8px; color: #b9cca7; background: #23341a; font: 9px/1.6 var(--font-mono); }
+.foundation { display: flex; align-items: center; gap: 9px; padding: 13px 16px; border-top: 1px solid #3d512e; color: #b9c99d; font: 9px/1.65 var(--font-mono); }
+.foundation > svg { color: #d8cd95; flex: none; }
+@media(max-width:450px) {
+  .graph { padding: 17px 10px 14px; }
+  .row { gap: 22px; }
+  .node { min-height: 151px; padding: 30px 6px 13px; }
+  .node strong { font-size: 10px; }
+  .node small { font-size: 8px; }
+  .support { padding: 8px; }
+  .support .row { gap: 12px; }
+  .support .node { min-height: 148px; }
+  .detail { padding-inline: 13px; }
+  .detailHeading h4 { font-size: 19px; }
+  .map .detail p { font-size: 13px; }
+}
+@media(prefers-reduced-motion:no-preference) {
+  .trace[data-visible="true"] { stroke-dasharray: 1; animation: followPath .85s ease-out both; }
+  .detailContent { animation: reveal .28s ease-out; }
+  @keyframes followPath { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes reveal { from { opacity: .2; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+}
+@media(prefers-reduced-motion:reduce) { .node { transition: none; } }
