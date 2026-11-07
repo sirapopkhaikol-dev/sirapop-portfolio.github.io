@@ -6,12 +6,14 @@ import Hackathon from "./Hackathon";
 import Internships from "./Internships";
 import MoneyMonkey from "./MoneyMonkey";
 import Bachelors from "./Bachelors";
+import Masters from "./Masters";
 
 const detailedChapters: Record<string, ComponentType | undefined> = {
   Hackathon,
   Internship: Internships,
   Projects: MoneyMonkey,
   "Bachelor’s degree": Bachelors,
+  "Master’s degree": Masters,
 };
 
 type Milestone = {
@@ -114,7 +116,7 @@ export default function Journey() {
               aria-controls={`${prefix}-story-${index}`}
               ref={button => { tabs.current[index] = button; }}
               onClick={() => setSelected(index)} onKeyDown={event => navigate(event, index)}>
-              <i aria-hidden="true" /><span>{title}</span>
+              <i aria-hidden="true" /><span>{title}{title === "Master’s degree" && <> <small className={styles.current}>Now</small></>}</span>
             </button>
           ))}
         </div>

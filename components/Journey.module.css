@@ -69,6 +69,7 @@
 .timeline button[aria-selected="true"] { color: var(--journey-lime); font-weight: 600; }
 .timeline button[aria-selected="true"] i { background: var(--journey-lime); border-color: var(--journey-lime); box-shadow: 0 0 0 3px #2b3522; }
 .timeline button:hover { color: var(--journey-ink); }
+.current { display: inline-block; margin-left: 8px; padding: 2px 5px; border: 1px solid #5a7444; border-radius: 3px; color: #c3df9f; font: 8px/1.4 var(--font-mono); vertical-align: middle; }
 .timeline button:focus-visible, .story:focus-visible { outline: 2px solid var(--journey-lime); outline-offset: 3px; }
 .story { min-width: 0; }
 .story[hidden] { display: none; }
