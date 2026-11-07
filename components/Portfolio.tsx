@@ -10,19 +10,24 @@ import Icon from "./Icon";
 import ModulePreview, { type ModuleId } from "./ModulePreview";
 import OrbitalScene from "./OrbitalScene";
 import ProfileDialog from "./ProfileDialog";
+import Contact from "./Contact";
+import Resume from "./Resume";
 
 const modules = [
   { id: "journey", title: "My journey", file: "journey.md", description: "From my first line of code to my master’s degree.", icon: "journey" },
-  { id: "values", title: "STAR values", file: "values.json", description: "Four principles behind how I work and grow.", icon: "star" },
   { id: "logic", title: "Logic lab", file: "logic-lab.ts", description: "See how algorithms think, one step at a time.", icon: "code" },
+  { id: "values", title: "STAR values", file: "values.json", description: "Four principles behind how I work and grow.", icon: "star" },
 ] as const;
 const tabs = [
   { id: "overview", label: "Overview", file: "profile.tsx" },
   { id: "journey", label: "Journey", file: "journey.md" },
-  { id: "values", label: "Values", file: "values.json" },
   { id: "logic", label: "Logic lab", file: "logic-lab.ts" },
+  { id: "values", label: "Values", file: "values.json" },
+  { id: "contact", label: "Contact", file: "contact.json" },
+  { id: "resume", label: "Résumé", file: "resume.md" },
 ] as const;
-type TabId = "overview" | ModuleId;
+type TabId = "overview" | ModuleId | "contact" | "resume";
+const tabHref = (id: TabId) => id === "resume" || id === "contact" ? "/" + id + "/" : "/#" + id;
 type WindowMode = "normal" | "expanded" | "minimized" | "closed";
 
 function useCursorEffect() {
@@ -47,8 +52,8 @@ function useCursorEffect() {
   return cursor;
 }
 
-export default function Portfolio({ portrait }: { portrait?: string }) {
-  const [tab, setTab] = useState<TabId>("overview");
+export default function Portfolio({ portrait, initialTab = "overview" }: { portrait?: string; initialTab?: TabId }) {
+  const [tab, setTab] = useState<TabId>(initialTab);
   const [mode, setMode] = useState<WindowMode>("normal");
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -60,13 +65,17 @@ export default function Portfolio({ portrait }: { portrait?: string }) {
   useEffect(() => {
     const sync = () => {
       const id = window.location.hash.slice(1);
-      setTab(tabs.find((item) => item.id === id)?.id ?? "overview");
+      const route = window.location.pathname.replace(/\//g, "");
+      setTab(tabs.find((item) => item.id === id)?.id ?? (route === "resume" || route === "contact" ? route : "overview"));
       setMode("normal");
     };
     sync();
     window.addEventListener("hashchange", sync);
-    return () => window.removeEventListener("hashchange", sync);
+    window.addEventListener("popstate", sync);
+    return () => { window.removeEventListener("hashchange", sync); window.removeEventListener("popstate", sync); };
   }, []);
+
+  useEffect(() => { document.title = tab === "resume" ? "Résumé | Sirapop Khaikol" : tab === "contact" ? "Contact | Sirapop Khaikol" : "Sirapop Khaikol | Software Developer"; }, [tab]);
 
   const changeWindow = (update: () => void) => {
     if (!document.startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -81,7 +90,8 @@ export default function Portfolio({ portrait }: { portrait?: string }) {
     });
   };
   const navigate = (next: TabId) => {
-    if (window.location.hash !== "#" + next) history.pushState(null, "", "#" + next);
+    const destination = tabHref(next);
+    if (window.location.pathname + window.location.hash !== destination) history.pushState(null, "", destination);
     window.scrollTo({ top: 0, behavior: "instant" });
     const select = () => {
       setTab(next);
@@ -111,12 +121,12 @@ export default function Portfolio({ portrait }: { portrait?: string }) {
             <img src={portrait} alt="" width="40" height="40"/>
             <span aria-hidden="true"><Icon name="upRight" size={9}/></span>
           </button>}
-          <a className="brand" href="#overview" aria-label="Sirapop portfolio home" onClick={(e) => { e.preventDefault(); navigate("overview"); }}>
+          <a className="brand" href="/#overview" aria-label="Sirapop portfolio home" onClick={(e) => { e.preventDefault(); navigate("overview"); }}>
             {!portrait && <span className="brand-mark"><Icon name="terminal" size={22}/></span>}
             <span>sirapop<span className="brand-domain">.dev</span></span>
           </a>
         </div>
-        <nav aria-label="Portfolio sections">{tabs.map((item) => <a key={item.id} href={"#" + item.id} aria-current={tab === item.id ? "page" : undefined} onClick={(e) => { e.preventDefault(); navigate(item.id); }}>{item.label}</a>)}</nav>
+        <nav aria-label="Portfolio sections">{tabs.map((item) => <a key={item.id} href={tabHref(item.id)} aria-current={tab === item.id ? "page" : undefined} onClick={(e) => { e.preventDefault(); navigate(item.id); }}>{item.label}</a>)}</nav>
         <button type="button" className="top-chat" onClick={() => setAssistantOpen(true)}><Icon name="bot" size={17}/><span>Ask assistant</span><Icon name="upRight" size={13}/></button>
       </div></header>
       <main className="page-body">
@@ -143,6 +153,7 @@ export default function Portfolio({ portrait }: { portrait?: string }) {
                     <button className="primary-button" onClick={() => navigate("journey")}>Explore my journey <Icon name="arrow" size={16}/></button>
                     <button className="secondary-button" onClick={() => setAssistantOpen(true)}><Icon name="chat" size={16}/> Ask about me</button>
                   </div>
+                  <div className="hero-links"><a href="/resume/" onClick={event => { event.preventDefault(); navigate("resume"); }}><Icon name="file" size={13}/>View résumé</a><a href="/contact/" onClick={event => { event.preventDefault(); navigate("contact"); }}>Get in touch <Icon name="upRight" size={12}/></a></div>
                 </div>
                 <figure className="orbit-figure">
                   <OrbitalScene suspended={profileOpen || assistantOpen || mode === "minimized"}/>
@@ -152,17 +163,20 @@ export default function Portfolio({ portrait }: { portrait?: string }) {
               {tab === "journey" && <Journey/>}
               {tab === "logic" && <LogicLab/>}
               {tab === "values" && <Values suspended={profileOpen || assistantOpen || mode === "minimized"}/>}
-              <div className="editor-status"><div><span><Icon name="branch" size={13}/> main</span><i/><span><span className="status-circle"/> Ready</span></div><div><span>UTF-8</span><i/><span>{tab === "journey" ? "Markdown" : tab === "values" ? "JSON" : "TypeScript"}</span></div></div>
+              {tab === "contact" && <Contact onOpenResume={() => navigate("resume")}/>}
+              {tab === "resume" && <Resume portrait={portrait} onContact={() => navigate("contact")}/>}
+              <div className="editor-status"><div><span><Icon name="branch" size={13}/> main</span><i/><span><span className="status-circle"/> Ready</span></div><div><span>UTF-8</span><i/><span>{tab === "journey" || tab === "resume" ? "Markdown" : tab === "values" || tab === "contact" ? "JSON" : "TypeScript"}</span></div></div>
             </div>
           </>}
         </section>
         <section className="workspace" aria-labelledby="workspace-title">
           <div className="workspace-hd"><div><Icon name="grid" size={19}/><h2 id="workspace-title">Workspace</h2></div><span>03 modules</span></div>
-          <div className="module-grid">{modules.map((module) => <a href={"#" + module.id} key={module.id} className={`module-card mod-${module.id}`} onClick={(e) => { e.preventDefault(); navigate(module.id); }}>
+          <div className="module-grid">{modules.map((module) => <a href={tabHref(module.id)} key={module.id} className={`module-card mod-${module.id}`} onClick={(e) => { e.preventDefault(); navigate(module.id); }}>
             <div className="card-top"><span><Icon name={module.icon} size={15}/>{module.file}</span><Icon name="upRight" size={16}/></div>
             <ModulePreview type={module.id}/>
             <div className="card-copy"><h3>{module.title}</h3><p>{module.description}</p></div>
           </a>)}</div>
+          <div className="recruiter-links"><span>Continue the conversation</span><a href="/contact/" onClick={event => { event.preventDefault(); navigate("contact"); }}><Icon name="mail" size={14}/>Contact <Icon name="upRight" size={12}/></a><a href="/resume/" onClick={event => { event.preventDefault(); navigate("resume"); }}><Icon name="file" size={14}/>Read résumé <Icon name="arrow" size={13}/></a></div>
         </section>
       </main>
       <footer><div className="footer-inner"><span>© Sirapop Khaikol</span><span><Icon name="code" size={13}/> Built with Next.js &amp; TypeScript</span></div></footer>

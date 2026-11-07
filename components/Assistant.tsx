@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import styles from "./Assistant.module.css";
+import { contactDetails } from "./contactDetails";
 
 const suggestions = [
   "Tell me about Sirapop",
@@ -12,7 +13,7 @@ const suggestions = [
 const topics = [
   {
     matches: /\b(contact|reach|connect|email|message|hire|hiring|available|availability|linkedin)\b/i,
-    answer: "For contact details and current availability, you’ll need to check with Sirapop directly. I can help you explore his background and projects here.",
+    answer: "Open Contact in the navigation to see the contact channels, or Résumé to read his background and download the original PDF." + (contactDetails.isPlaceholder ? " Contact details are currently examples awaiting Sirapop’s update." : ""),
   },
   {
     matches: /\b(star|values?|principles?|curiosity|mindset|approach|feedback|philosophy)\b/i,

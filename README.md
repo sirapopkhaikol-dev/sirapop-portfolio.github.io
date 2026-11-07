@@ -15,3 +15,12 @@ Run `npm run typecheck` to check TypeScript. Run `npm run build` to generate a s
 - Edit the principles and mottos in `components/Values.tsx`. Update the corresponding local replies in `components/Assistant.tsx` if you change your biography or values.
 
 The illustrative university and laptop photographs are from Unsplash. The orbital illustration and workspace diagrams are original vector artwork.
+
+
+## Updating Contact and Resume
+
+- Edit `components/contactDetails.ts` to replace the example email, phone, GitHub, and LinkedIn values and their `href` destinations. Set `isPlaceholder: false` when all details are ready; this removes the example notices from Contact, Resume, and the assistant.
+- The Contact page is `/contact/`; the web resume is `/resume/`. Both are reachable from the navigation, home page, and workspace links.
+- Edit `components/Resume.tsx` to update the online resume content.
+- Replace `public/resume.pdf` with a newer PDF using the same filename to update the download. The supplied original PDF was copied without alteration.
+- Rebuild and redeploy after updating either the content or PDF.
