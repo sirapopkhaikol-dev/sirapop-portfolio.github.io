@@ -83,7 +83,8 @@ export function drawOrbit(ctx: CanvasRenderingContext2D, width: number, height: 
   const ox = width * .505, oy = height * .515;
   const project = ([x,y,z]: Point): Point => {
     const a = x*cy-y*sy, b = x*sy+y*cy;
-    const h = b*cp-z*sp, depth = b*sp+z*cp;
+    // Geographic north must point up before converting to canvas's downward Y.
+    const h = z*sp-b*cp, depth = b*sp+z*cp;
     const zoom = scale * 6.8 / (6.8-depth);
     return [ox+(a*cr-h*sr)*zoom, oy-(a*sr+h*cr)*zoom, depth];
   };

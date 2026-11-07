@@ -88,8 +88,8 @@ export default function OrbitalScene({ suspended = false }: { suspended?: boolea
     }
     function moveDrag(event: PointerEvent) {
       if (!drag || drag.id !== event.pointerId) return;
-      yaw += (event.clientX - drag.x) * .009;
-      pitch = clampPitch(pitch + (event.clientY - drag.y) * .008);
+      yaw -= (event.clientX - drag.x) * .009;
+      pitch = clampPitch(pitch - (event.clientY - drag.y) * .008);
       drag.x = event.clientX;
       drag.y = event.clientY;
       if (!running) paint();
@@ -102,10 +102,10 @@ export default function OrbitalScene({ suspended = false }: { suspended?: boolea
     }
     function keyboard(event: KeyboardEvent) {
       switch (event.key) {
-        case "ArrowLeft": yaw -= .13; break;
-        case "ArrowRight": yaw += .13; break;
-        case "ArrowUp": pitch = clampPitch(pitch - .11); break;
-        case "ArrowDown": pitch = clampPitch(pitch + .11); break;
+        case "ArrowLeft": yaw += .13; break;
+        case "ArrowRight": yaw -= .13; break;
+        case "ArrowUp": pitch = clampPitch(pitch + .11); break;
+        case "ArrowDown": pitch = clampPitch(pitch - .11); break;
         default: return;
       }
       event.preventDefault();
