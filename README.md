@@ -31,3 +31,12 @@ The illustrative university and laptop photographs are from Unsplash. The orbita
 `components/orbitalGeometry.ts` renders Earth and the existing CubeSat in the same 3D scene. `components/earthLand.ts` contains quantized coastlines and sampled land points from the public-domain Natural Earth 1:110m land dataset: https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_land.geojson .
 
 The Bangkok marker uses approximate city coordinates (13.75 N, 100.5 E); it does not identify a personal address. Focus Bangkok restores the initial camera without resetting satellite motion. Pause and Reset continue to control the scene. Animation respects reduced motion, offscreen visibility, and open dialogs. `public/earth-orbital-field.svg` provides the matching static fallback; the original orbital-field.svg is retained.
+
+
+## GitHub Pages
+
+The workflow in `.github/workflows/pages.yml` checks and builds the static site, then publishes it on pushes to `main`. Repository Settings > Pages must use **GitHub Actions** as its source.
+
+The workflow reads the hosting subdirectory from GitHub Pages and sets `NEXT_PUBLIC_BASE_PATH` for the build. Assets, navigation, galleries, and the PDF download use the shared `components/sitePath.ts` helper. Local development and other root-domain hosting leave this value empty.
+
+For this repository the site address is https://sirapopkhaikol-dev.github.io/sirapop-portfolio.github.io/ . The latest deployment can be checked in the repository's Actions tab. Run `npm run test:paths` to check hosting-path behavior.

@@ -1,5 +1,6 @@
 "use client";
 
+import { sitePath } from "./sitePath";
 import { useState } from "react";
 import Icon from "./Icon";
 import ImageLightbox, { type GalleryImage } from "./ImageLightbox";
@@ -37,7 +38,7 @@ export default function MoneyMonkey() {
     </a>
     <div className={gallery.showcase}>
       <button type="button" className={gallery.screen} aria-label={"Enlarge "+screens[screen].label} aria-haspopup="dialog" onClick={()=>setImage(screens[screen])}>
-        <img key={screen} className={styles.projectImage} src={screens[screen].src} alt={screens[screen].alt} loading="lazy"/>
+        <img key={screen} className={styles.projectImage} src={sitePath(screens[screen].src)} alt={screens[screen].alt} loading="lazy"/>
         <span>{screens[screen].label}<Icon name="upRight" size={14}/></span>
       </button>
       <div className={gallery.screenNav} role="group" aria-label="MoneyMonkey screenshots">
@@ -69,7 +70,7 @@ export default function MoneyMonkey() {
       <li><Icon name="grid" size={22}/><div><h4>Make model output understandable</h4><p>Use a web interface and charts to make the team’s forecasts easier to inspect and discuss.</p></div></li>
     </ul>
     <button type="button" className={styles.team} aria-label={"Enlarge "+team.label} aria-haspopup="dialog" onClick={()=>setImage(team)}>
-      <img src={team.src} alt={team.alt} loading="lazy"/>
+      <img src={sitePath(team.src)} alt={team.alt} loading="lazy"/>
       <span>{team.label}<Icon name="upRight" size={14}/></span>
     </button>
     <ImageLightbox image={image} onClose={()=>setImage(null)}/>

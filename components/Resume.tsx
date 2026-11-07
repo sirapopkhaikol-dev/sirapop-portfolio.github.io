@@ -1,3 +1,4 @@
+import { sitePath } from "./sitePath";
 import Icon from "./Icon";
 import { contactDetails } from "./contactDetails";
 import styles from "./Resume.module.css";
@@ -15,13 +16,13 @@ function Heading({ number, children }: { number: string; children: React.ReactNo
 
 export default function Resume({ portrait, onContact }: { portrait?: string; onContact: () => void }) {
   return <article className={styles.resume} aria-labelledby="resume-name">
-    <div className={styles.toolbar}><span><Icon name="file" size={15}/> RÉSUMÉ / WEB EDITION</span><a href="/resume.pdf" target="_blank" rel="noopener noreferrer">Open original PDF <Icon name="upRight" size={13}/></a></div>
+    <div className={styles.toolbar}><span><Icon name="file" size={15}/> RÉSUMÉ / WEB EDITION</span><a href={sitePath("/resume.pdf")}  target="_blank" rel="noopener noreferrer">Open original PDF <Icon name="upRight" size={13}/></a></div>
     <header className={styles.header}>
       <div><div className={styles.kicker}>SOFTWARE · SYSTEMS · CONTINUOUS LEARNING</div><h1 id="resume-name">Sirapop Khaikol<span>.</span></h1><p className={styles.role}>Software Developer</p></div>
-      {portrait && <div className={styles.portrait}><img src={portrait} alt="Sirapop Khaikol" width="106" height="120"/></div>}
+      {portrait && <div className={styles.portrait}><img src={sitePath(portrait)} alt="Sirapop Khaikol" width="106" height="120"/></div>}
     </header>
     <p className={styles.summary}>Software developer with practical experience in API development, frontend and backend troubleshooting, and systems integration. I build web applications that connect data to useful interfaces, with a focus on reliability, performance, and understanding the system behind the code.</p>
-    <div className={styles.actions}><a className="primary-button" href="/resume.pdf" download="Sirapop-Khaikol-Resume.pdf"><Icon name="download" size={16}/>Download résumé PDF</a><a className="secondary-button" href="/#contact" onClick={event => { event.preventDefault(); onContact(); }}><Icon name="mail" size={16}/>Contact me</a><span>Original document · 2 pages · PDF</span></div>
+    <div className={styles.actions}><a className="primary-button" href={sitePath("/resume.pdf")}  download="Sirapop-Khaikol-Resume.pdf"><Icon name="download" size={16}/>Download résumé PDF</a><a className="secondary-button" href={sitePath("/#contact")}  onClick={event => { event.preventDefault(); onContact(); }}><Icon name="mail" size={16}/>Contact me</a><span>Original document · 2 pages · PDF</span></div>
     <div className={styles.facts}><div><strong>1 year</strong><span>Software development experience</span></div><div><strong>Dual degree</strong><span>Engineering & science · KMITL</span></div><div><strong>Master’s</strong><span>AIoT & Information Engineering · In progress</span></div></div>
     <div className={styles.layout}>
       <div className={styles.main}>
@@ -44,9 +45,9 @@ export default function Resume({ portrait, onContact }: { portrait?: string; onC
         <section><Heading number="05">Credentials</Heading><div className={styles.credential}><Icon name="check" size={16}/><div><h3>TOEIC · 565</h3><p>English · CEFR B1</p></div></div><div className={styles.credential}><Icon name="lab" size={17}/><div><h3>My Order Cloud Hero #2</h3><p>Cloud learning covering cloud architecture, big data, machine learning, and cloud-native applications.</p></div></div></section>
         <section><Heading number="06">Languages</Heading><dl className={styles.languages}><div><dt>Thai</dt><dd>Native</dd></div><div><dt>English</dt><dd>B1 · TOEIC 565</dd></div></dl></section>
         <section><Heading number="07">Beyond the code</Heading><div className={styles.activity}><h3>KMITL Innovation Expo 2025</h3><p>Exhibition staff, supporting event management, teamwork, and communication.</p></div><div className={styles.activity}><h3>AiHack 2024</h3><p>4th of 32 teams in the AUC Tournament, developing financial forecasting models.</p></div></section>
-        <section className={styles.connect}><Icon name="chat" size={21}/><h3>Let’s connect</h3><p>Find my contact channels and professional profiles.</p><a href="/#contact" onClick={event => { event.preventDefault(); onContact(); }}>Go to Contact <Icon name="arrow" size={13}/></a>{contactDetails.isPlaceholder && <small>Contact details are currently examples.</small>}</section>
+        <section className={styles.connect}><Icon name="chat" size={21}/><h3>Let’s connect</h3><p>Find my contact channels and professional profiles.</p><a href={sitePath("/#contact")}  onClick={event => { event.preventDefault(); onContact(); }}>Go to Contact <Icon name="arrow" size={13}/></a>{contactDetails.isPlaceholder && <small>Contact details are currently examples.</small>}</section>
       </aside>
     </div>
-    <footer className={styles.note}><Icon name="file" size={16}/><p>This web edition brings together the supplied résumé and the current study and project details in this portfolio. The download is the original PDF, unchanged.</p><a href="/resume.pdf" download="Sirapop-Khaikol-Resume.pdf">Download PDF <Icon name="download" size={13}/></a></footer>
+    <footer className={styles.note}><Icon name="file" size={16}/><p>This web edition brings together the supplied résumé and the current study and project details in this portfolio. The download is the original PDF, unchanged.</p><a href={sitePath("/resume.pdf")}  download="Sirapop-Khaikol-Resume.pdf">Download PDF <Icon name="download" size={13}/></a></footer>
   </article>;
 }

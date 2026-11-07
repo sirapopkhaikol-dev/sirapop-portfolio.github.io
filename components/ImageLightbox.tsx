@@ -1,5 +1,6 @@
 "use client";
 
+import { sitePath } from "./sitePath";
 import { useEffect, useId, useRef } from "react";
 import Icon from "./Icon";
 import styles from "./Hackathon.module.css";
@@ -28,6 +29,6 @@ export default function ImageLightbox({ image, onClose }: { image: GalleryImage 
       if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) onClose();
     }}>
     <button type="button" aria-label="Close image" onClick={onClose}><Icon name="close" size={20}/></button>
-    {image && <figure><img src={image.src} alt={image.alt}/><figcaption id={captionId}>{image.label}</figcaption></figure>}
+    {image && <figure><img src={sitePath(image.src)} alt={image.alt}/><figcaption id={captionId}>{image.label}</figcaption></figure>}
   </dialog>;
 }

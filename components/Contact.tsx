@@ -1,5 +1,6 @@
 "use client";
 
+import { sitePath } from "./sitePath";
 import { useState } from "react";
 import Icon from "./Icon";
 import { contactDetails } from "./contactDetails";
@@ -32,7 +33,7 @@ export default function Contact({ onOpenResume }: { onOpenResume: () => void }) 
       </article>)}
     </div>
     <p className={styles.feedback} role="status" aria-live="polite">{feedback || "Choose a channel above to open it, or copy the details."}</p>
-    <div className={styles.resumeCard}><div className={styles.documentIcon}><Icon name="file" size={30}/></div><div><span>FOR RECRUITERS & COLLABORATORS</span><h2>The background, in one place.</h2><p>Read my résumé online or take the original PDF with you.</p></div><a href="/resume/" onClick={event => { event.preventDefault(); onOpenResume(); }}>View résumé <Icon name="arrow" size={16}/></a></div>
+    <div className={styles.resumeCard}><div className={styles.documentIcon}><Icon name="file" size={30}/></div><div><span>FOR RECRUITERS & COLLABORATORS</span><h2>The background, in one place.</h2><p>Read my résumé online or take the original PDF with you.</p></div><a href={sitePath("/resume/")}  onClick={event => { event.preventDefault(); onOpenResume(); }}>View résumé <Icon name="arrow" size={16}/></a></div>
     <div className={styles.signature}><Icon name="star" size={22}/><span>Build. Learn. Improve. Repeat.</span></div>
   </section>;
 }

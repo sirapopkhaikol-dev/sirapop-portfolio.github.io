@@ -1,5 +1,6 @@
 "use client";
 
+import { sitePath } from "./sitePath";
 import { useEffect, useId, useRef, useState } from "react";
 import { drawOrbit, homeCamera } from "./orbitalGeometry";
 import styles from "./OrbitalScene.module.css";
@@ -153,7 +154,7 @@ export default function OrbitalScene({ suspended = false }: { suspended?: boolea
   useEffect(() => { controls.current?.suspend(suspended); }, [suspended]);
 
   return <div className={styles.scene}>
-    {!ready && <img className={styles.fallback} src="/earth-orbital-field.svg" width="660" height="430" alt="Earth facing Southeast Asia, with a Bangkok marker and an orbiting satellite."/>}
+    {!ready && <img className={styles.fallback} src={sitePath("/earth-orbital-field.svg")}  width="660" height="430" alt="Earth facing Southeast Asia, with a Bangkok marker and an orbiting satellite."/>}
     <canvas ref={canvasRef} className={styles.canvas} tabIndex={ready ? 0 : -1}
       role="img" aria-label="Interactive 3D Earth with a Bangkok, Thailand marker and an orbiting CubeSat"
       aria-hidden={!ready} aria-describedby={instructions}/>

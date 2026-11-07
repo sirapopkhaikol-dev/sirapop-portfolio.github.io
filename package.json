@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test:orbit": "node --test scripts/orbital-orientation.test.cjs"
+    "test:orbit": "node --test scripts/orbital-orientation.test.cjs",
+    "test:paths": "node --test scripts/site-path.test.cjs"
   },
   "dependencies": {
     "geist": "1",

@@ -1,5 +1,6 @@
 "use client";
 
+import { sitePath } from "./sitePath";
 import { useId, useRef, useState, type ComponentType, type KeyboardEvent } from "react";
 import styles from "./Journey.module.css";
 import Hackathon from "./Hackathon";
@@ -131,7 +132,7 @@ export default function Journey() {
               <p>{milestone.reflection}</p>
               <p>{milestone.takeaway}</p>
               {milestone.photo && <figure className={styles.photograph}>
-                <img src={milestone.photo.src} alt="" width="900" height="510" />
+                <img src={sitePath(milestone.photo.src)} alt="" width="900" height="510" />
                 <figcaption>{milestone.photo.subject} <span aria-hidden="true">/</span> Illustrative photograph</figcaption>
               </figure>}
               {milestone.diagram && <ProcessDiagram steps={milestone.diagram} />}

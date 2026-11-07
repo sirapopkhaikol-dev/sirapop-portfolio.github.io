@@ -1,5 +1,6 @@
 "use client";
 
+import { sitePath, withoutBasePath } from "./sitePath";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import Assistant from "./Assistant";
@@ -27,7 +28,7 @@ const tabs = [
   { id: "resume", label: "Résumé", file: "resume.md" },
 ] as const;
 type TabId = "overview" | ModuleId | "contact" | "resume";
-const tabHref = (id: TabId) => id === "resume" || id === "contact" ? "/" + id + "/" : "/#" + id;
+const tabHref = (id: TabId) => sitePath(id === "resume" || id === "contact" ? "/" + id + "/" : "/#" + id);
 type WindowMode = "normal" | "expanded" | "minimized" | "closed";
 
 function useCursorEffect() {
@@ -65,7 +66,7 @@ export default function Portfolio({ portrait, initialTab = "overview" }: { portr
   useEffect(() => {
     const sync = () => {
       const id = window.location.hash.slice(1);
-      const route = window.location.pathname.replace(/\//g, "");
+      const route = withoutBasePath(window.location.pathname).replace(/\//g, "");
       setTab(tabs.find((item) => item.id === id)?.id ?? (route === "resume" || route === "contact" ? route : "overview"));
       setMode("normal");
     };
@@ -118,10 +119,10 @@ export default function Portfolio({ portrait, initialTab = "overview" }: { portr
       <header className="masthead"><div className="masthead-inner">
         <div className="identity">
           {portrait && <button type="button" className="profile-trigger" aria-haspopup="dialog" aria-label="View Sirapop’s photo and profile" title="View Sirapop’s profile" onClick={() => setProfileOpen(true)}>
-            <img src={portrait} alt="" width="40" height="40"/>
+            <img src={sitePath(portrait)} alt="" width="40" height="40"/>
             <span aria-hidden="true"><Icon name="upRight" size={9}/></span>
           </button>}
-          <a className="brand" href="/#overview" aria-label="Sirapop portfolio home" onClick={(e) => { e.preventDefault(); navigate("overview"); }}>
+          <a className="brand" href={sitePath("/#overview")}  aria-label="Sirapop portfolio home" onClick={(e) => { e.preventDefault(); navigate("overview"); }}>
             {!portrait && <span className="brand-mark"><Icon name="terminal" size={22}/></span>}
             <span>sirapop<span className="brand-domain">.dev</span></span>
           </a>
@@ -153,7 +154,7 @@ export default function Portfolio({ portrait, initialTab = "overview" }: { portr
                     <button className="primary-button" onClick={() => navigate("journey")}>Explore my journey <Icon name="arrow" size={16}/></button>
                     <button className="secondary-button" onClick={() => setAssistantOpen(true)}><Icon name="chat" size={16}/> Ask about me</button>
                   </div>
-                  <div className="hero-links"><a href="/resume/" onClick={event => { event.preventDefault(); navigate("resume"); }}><Icon name="file" size={13}/>View résumé</a><a href="/contact/" onClick={event => { event.preventDefault(); navigate("contact"); }}>Get in touch <Icon name="upRight" size={12}/></a></div>
+                  <div className="hero-links"><a href={sitePath("/resume/")}  onClick={event => { event.preventDefault(); navigate("resume"); }}><Icon name="file" size={13}/>View résumé</a><a href={sitePath("/contact/")}  onClick={event => { event.preventDefault(); navigate("contact"); }}>Get in touch <Icon name="upRight" size={12}/></a></div>
                 </div>
                 <figure className="orbit-figure">
                   <OrbitalScene suspended={profileOpen || assistantOpen || mode === "minimized"}/>
@@ -176,7 +177,7 @@ export default function Portfolio({ portrait, initialTab = "overview" }: { portr
             <ModulePreview type={module.id}/>
             <div className="card-copy"><h3>{module.title}</h3><p>{module.description}</p></div>
           </a>)}</div>
-          <div className="recruiter-links"><span>Continue the conversation</span><a href="/contact/" onClick={event => { event.preventDefault(); navigate("contact"); }}><Icon name="mail" size={14}/>Contact <Icon name="upRight" size={12}/></a><a href="/resume/" onClick={event => { event.preventDefault(); navigate("resume"); }}><Icon name="file" size={14}/>Read résumé <Icon name="arrow" size={13}/></a></div>
+          <div className="recruiter-links"><span>Continue the conversation</span><a href={sitePath("/contact/")}  onClick={event => { event.preventDefault(); navigate("contact"); }}><Icon name="mail" size={14}/>Contact <Icon name="upRight" size={12}/></a><a href={sitePath("/resume/")}  onClick={event => { event.preventDefault(); navigate("resume"); }}><Icon name="file" size={14}/>Read résumé <Icon name="arrow" size={13}/></a></div>
         </section>
       </main>
       <footer><div className="footer-inner"><span>© Sirapop Khaikol</span><span><Icon name="code" size={13}/> Built with Next.js &amp; TypeScript</span></div></footer>

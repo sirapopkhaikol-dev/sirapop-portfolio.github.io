@@ -1,3 +1,4 @@
+import { sitePath } from "./sitePath";
 import { useEffect, useId, useRef } from "react";
 import Icon from "./Icon";
 import styles from "./ProfileDialog.module.css";
@@ -46,7 +47,7 @@ export default function ProfileDialog({ portrait, open, onClose }: ProfileDialog
           <Icon name="close" size={20} />
         </button>
         <div className={styles.matte}>
-          <img src={portrait} alt="Sirapop Khaikol, smiling in a white shirt and tie" width={360} height={360} />
+          <img src={sitePath(portrait)} alt="Sirapop Khaikol, smiling in a white shirt and tie" width={360} height={360} />
         </div>
         <section className={styles.identity}>
           <h2 id={titleId}>Sirapop <span>Khaikol</span></h2>

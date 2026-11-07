@@ -1,5 +1,6 @@
 "use client";
 
+import { sitePath } from "./sitePath";
 import { useState } from "react";
 import Icon from "./Icon";
 import ImageLightbox, { type GalleryImage } from "./ImageLightbox";
@@ -28,7 +29,7 @@ export default function FirstYear() {
     <div className={styles.memories} aria-label="First-year university memories">
       {memories.map((photo, index) => <button type="button" key={photo.src} className={index === 0 ? styles.friends : styles.night}
         aria-label={"Enlarge " + photo.label} aria-haspopup="dialog" onClick={() => setImage(photo)}>
-        <img src={photo.src} alt={photo.alt} width={index === 0 ? 1440 : 720} height={index === 0 ? 1109 : 720} loading="lazy"/>
+        <img src={sitePath(photo.src)} alt={photo.alt} width={index === 0 ? 1440 : 720} height={index === 0 ? 1109 : 720} loading="lazy"/>
         <span><span className={styles.number}>{index + 1}</span>{index === 0 ? "People & memories" : "A little atmosphere"}<Icon name="upRight" size={13}/></span>
       </button>)}
     </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { sitePath } from "./sitePath";
 import { useId, useRef, useState, type KeyboardEvent } from "react";
 import Icon from "./Icon";
 import ImageLightbox, { type GalleryImage } from "./ImageLightbox";
@@ -35,7 +36,7 @@ export default function Internships() {
   }
   function thumbnail(item: GalleryImage) {
     return <button type="button" className={styles.media} onClick={() => setImage(item)} aria-label={"Enlarge " + item.label} aria-haspopup="dialog" key={item.src}>
-      <img src={item.src} alt={item.alt} loading="lazy"/>
+      <img src={sitePath(item.src)} alt={item.alt} loading="lazy"/>
       <span>{item.label}<Icon name="upRight" size={13}/></span>
     </button>;
   }
@@ -68,10 +69,10 @@ export default function Internships() {
         <p>I helped build a web dashboard that carried machine data from the PLC through collection software, backend services, and a database to the frontend. Redis Pub/Sub and Server-Sent Events (SSE) supported live updates so the team could track machines in real time and reduce human errors.</p>
         <div className={styles.showcase}>
           <button type="button" className={styles.screen} onClick={()=>setImage(screens[screen])} aria-label={"Enlarge " + screens[screen].label} aria-haspopup="dialog">
-            <img key={screen} src={screens[screen].src} alt={screens[screen].alt} loading="lazy"/>
+            <img key={screen} src={sitePath(screens[screen].src)} alt={screens[screen].alt} loading="lazy"/>
             <span>{screens[screen].label}<Icon name="upRight" size={14}/></span>
           </button>
-          <div className={styles.screenNav} role="group" aria-label="Dashboard views">{screens.map((item,index)=><button type="button" key={item.src} aria-pressed={screen===index} onClick={()=>setScreen(index)}><span>{index+1}</span> {item.label}</button>)}</div>
+          <div className={styles.screenNav} role="group" aria-label="Dashboard views">{screens.map((item,index)=><button type="button" key={item.src} aria-pressed={screen===index} onClick={()=>setScreen(index)}>{item.label}</button>)}</div>
           <p className={styles.note}>Project screenshots supplied with confidential values censored.</p>
         </div>
         <div className={styles.sectionTitle}><Icon name="branch" size={21}/><h3>Follow a machine update</h3></div>
