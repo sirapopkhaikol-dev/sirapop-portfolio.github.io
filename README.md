@@ -24,3 +24,10 @@ The illustrative university and laptop photographs are from Unsplash. The orbita
 - Edit `components/Resume.tsx` to update the online resume content.
 - Replace `public/resume.pdf` with a newer PDF using the same filename to update the download. The supplied original PDF was copied without alteration.
 - Rebuild and redeploy after updating either the content or PDF.
+
+
+## Earth orbital scene
+
+`components/orbitalGeometry.ts` renders Earth and the existing CubeSat in the same 3D scene. `components/earthLand.ts` contains quantized coastlines and sampled land points from the public-domain Natural Earth 1:110m land dataset: https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_land.geojson .
+
+The Bangkok marker uses approximate city coordinates (13.75 N, 100.5 E); it does not identify a personal address. Focus Bangkok restores the initial camera without resetting satellite motion. Pause and Reset continue to control the scene. Animation respects reduced motion, offscreen visibility, and open dialogs. `public/earth-orbital-field.svg` provides the matching static fallback; the original orbital-field.svg is retained.

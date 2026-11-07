@@ -1,33 +1,30 @@
-// The torus, orbital paths and CubeSat share one model-space coordinate system.
+import { coastlines, landPoints } from "./earthLand";
+
+// Earth, orbital paths and the original CubeSat share model-space coordinates.
 // Positive camera depth points toward the viewer.
 type Point = [number, number, number];
 type Face = { indices: number[]; tone: number; edge?: string; fill?: string };
 type Mesh = { vertices: Point[]; faces: Face[] };
-type Camera = { yaw: number; pitch: number; roll: number };
+export type Camera = { yaw: number; pitch: number; roll: number };
 
 const TAU = Math.PI * 2;
-const radius = .78;
-const tube = .31;
+export const EARTH_RADIUS = .89;
+export const bangkok = { latitude: 13.75, longitude: 100.5 };
+export const homeCamera: Camera = { yaw: 1.35, pitch: 1.16, roll: .10 };
 
-function makeTorus(): Mesh {
-  const vertices: Point[] = [];
-  const faces: Face[] = [];
-  const slices = 72, rings = 24;
-  for (let u = 0; u < slices; u++) {
-    const a = u / slices * TAU;
-    for (let v = 0; v < rings; v++) {
-      const b = v / rings * TAU;
-      const radial = radius + tube * Math.cos(b);
-      vertices.push([radial * Math.cos(a), radial * Math.sin(a), tube * Math.sin(b)]);
-      const nextU = (u + 1) % slices, nextV = (v + 1) % rings;
-      const light = .5 + .5 * (Math.cos(a + 2.2) * Math.cos(b) * .6 + Math.sin(b) * .8);
-      faces.push({ indices: [u*rings+v, nextU*rings+v, nextU*rings+nextV, u*rings+nextV], tone: light });
-    }
-  }
-  return { vertices, faces };
+// Coordinates indicate Bangkok at city scale, rather than a personal address.
+export function geographicPoint(latitude: number, longitude: number, radius = EARTH_RADIUS): Point {
+  const lat = latitude * Math.PI / 180, lon = longitude * Math.PI / 180;
+  return [radius * Math.cos(lat) * Math.sin(lon), radius * Math.cos(lat) * Math.cos(lon), radius * Math.sin(lat)];
 }
 
-const torus = makeTorus();
+const shorelines = coastlines.map(ring => ring.map(([lon, lat]) => geographicPoint(lat, lon)));
+const land = landPoints.map(([lon, lat]) => geographicPoint(lat, lon));
+const graticule = [
+  ...Array.from({ length: 24 }, (_, i) => Array.from({ length: 61 }, (_, j) => geographicPoint(-90 + j * 3, i * 15))),
+  ...Array.from({ length: 11 }, (_, i) => Array.from({ length: 121 }, (_, j) => geographicPoint(-75 + i * 15, -180 + j * 3))),
+];
+const homePoint = geographicPoint(bangkok.latitude, bangkok.longitude, EARTH_RADIUS + .008);
 const surfaceColors = Array.from({length: 32}, (_, i) => {
   const f = i / 31;
   return { fill: `rgb(${Math.round(15+f*13)},${Math.round(22+f*17)},${Math.round(15+f*7)})`,
@@ -90,6 +87,65 @@ export function drawOrbit(ctx: CanvasRenderingContext2D, width: number, height: 
     const zoom = scale * 6.8 / (6.8-depth);
     return [ox+(a*cr-h*sr)*zoom, oy-(a*sr+h*cr)*zoom, depth];
   };
+  const globeRadius = scale * EARTH_RADIUS * 6.8 / Math.sqrt(6.8 ** 2 - EARTH_RADIUS ** 2);
+  // With perspective, the horizon is slightly in front of the center plane.
+  const horizon = EARTH_RADIUS ** 2 / 6.8;
+  const visible = (p: Point) => p[2] >= horizon;
+  function drawSurfaceLine(points: Point[], color: string, lineWidth: number) {
+    ctx.beginPath(); ctx.strokeStyle = color; ctx.lineWidth = lineWidth;
+    for (let i = 1; i < points.length; i++) {
+      const a = points[i-1], b = points[i];
+      const av = visible(a), bv = visible(b);
+      if (!av && !bv) continue;
+      const t = av !== bv ? (horizon - a[2]) / (b[2] - a[2]) : 0;
+      const cut: Point = [a[0] + (b[0]-a[0])*t, a[1] + (b[1]-a[1])*t, horizon];
+      const start = av ? a : cut, end = bv ? b : cut;
+      ctx.moveTo(start[0], start[1]); ctx.lineTo(end[0], end[1]);
+    }
+    ctx.stroke();
+  }
+  function drawEarth() {
+    ctx.save();
+    // A dark opaque ocean masks the far-side paths and keeps the globe solid.
+    const ocean = ctx.createRadialGradient(ox-globeRadius*.38, oy-globeRadius*.4, globeRadius*.07, ox, oy, globeRadius);
+    ocean.addColorStop(0, "#233b32"); ocean.addColorStop(.63, "#15291f"); ocean.addColorStop(1, "#0d1813");
+    ctx.beginPath(); ctx.arc(ox, oy, globeRadius, 0, TAU);
+    ctx.fillStyle = ocean; ctx.fill(); ctx.clip();
+    for (const line of graticule) drawSurfaceLine(line.map(project), "rgba(132,178,132,.17)", .55);
+    for (const point of land) {
+      const p = project(point);
+      if (!visible(p)) continue;
+      const light = Math.max(0, Math.min(1, (p[2]-horizon) / EARTH_RADIUS));
+      ctx.fillStyle = `rgba(180,220,137,${.28 + light*.45})`;
+      ctx.beginPath(); ctx.arc(p[0], p[1], Math.max(.6, scale*.0054) * (.65+light*.35), 0, TAU); ctx.fill();
+    }
+    for (const line of shorelines) drawSurfaceLine(line.map(project), "rgba(188,224,154,.66)", .8);
+    const shade = ctx.createLinearGradient(ox-globeRadius, oy-globeRadius, ox+globeRadius, oy+globeRadius);
+    shade.addColorStop(0, "rgba(7,15,13,0)"); shade.addColorStop(.6, "rgba(7,15,13,.03)"); shade.addColorStop(1, "rgba(4,9,8,.57)");
+    ctx.fillStyle = shade; ctx.fillRect(ox-globeRadius, oy-globeRadius, globeRadius*2, globeRadius*2);
+    ctx.restore();
+    const atmosphere = ctx.createRadialGradient(ox, oy, globeRadius*.97, ox, oy, globeRadius*1.09);
+    atmosphere.addColorStop(0, "rgba(154,219,177,0)"); atmosphere.addColorStop(.25, "rgba(154,219,177,.16)"); atmosphere.addColorStop(1, "rgba(115,205,179,0)");
+    ctx.fillStyle = atmosphere; ctx.beginPath(); ctx.arc(ox, oy, globeRadius*1.09, 0, TAU); ctx.fill();
+    ctx.strokeStyle = "rgba(173,226,185,.59)"; ctx.lineWidth = .9; ctx.beginPath(); ctx.arc(ox, oy, globeRadius, 0, TAU); ctx.stroke();
+  }
+  function drawBangkok() {
+    const p = project(homePoint);
+    if (!visible(p)) return;
+    const pulse = (Math.sin(elapsed*2.5)+1)/2;
+    const halo = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], 17);
+    halo.addColorStop(0, "rgba(209,255,153,.48)"); halo.addColorStop(1, "rgba(195,247,123,0)");
+    ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(p[0], p[1], 17, 0, TAU); ctx.fill();
+    ctx.strokeStyle = `rgba(212,255,165,${.55-pulse*.2})`; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(p[0], p[1], 6+pulse*5, 0, TAU); ctx.stroke();
+    ctx.fillStyle = "#e1ffb0"; ctx.beginPath(); ctx.arc(p[0], p[1], 3, 0, TAU); ctx.fill();
+    // The leader stays inside the canvas even when the user rotates the globe.
+    const endX = Math.min(width-70, Math.max(12, p[0]+22));
+    const endY = Math.min(height-64, Math.max(55, p[1]-29));
+    ctx.strokeStyle = "rgba(202,238,159,.8)"; ctx.lineWidth = .8;
+    ctx.beginPath(); ctx.moveTo(p[0]+4, p[1]-4); ctx.lineTo(endX, endY); ctx.lineTo(endX+57, endY); ctx.stroke();
+    ctx.fillStyle = "#dcf6b9"; ctx.font = "9px Consolas, monospace"; ctx.fillText("BANGKOK", endX+2, endY-6);
+  }
   const paintFace = (points: Point[], face: Face, fromMesh: boolean) => {
     const ink = surfaceColors[Math.round(face.tone*31)];
     ctx.beginPath();
@@ -149,13 +205,14 @@ export function drawOrbit(ctx: CanvasRenderingContext2D, width: number, height: 
   const isNear=project(center)[2]>=0;
   drawTracks(false);
   if (!isNear) drawProbe();
-  paintMesh(torus.vertices.map(project), torus.faces,true);
+  drawEarth();
   drawTracks(true);
   if (isNear) drawProbe();
+  drawBangkok();
   [1,2].forEach((n) => {
     const tr=trajectories[n], t=elapsed*(n===1 ? -.13:.1) + n*1.1;
     const [x,y,z]=project(orbit(t,tr.distance,tr.inclination,tr.node));
-    if (z<0 && Math.hypot(x-ox,y-oy)<scale*1.1) return;
+    if (z<0 && Math.hypot(x-ox,y-oy)<globeRadius) return;
     ctx.fillStyle="#ceeaa3"; ctx.beginPath();ctx.arc(x,y,1.7,0,TAU);ctx.fill();
   });
 }

@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { drawOrbit } from "./orbitalGeometry";
+import { drawOrbit, homeCamera } from "./orbitalGeometry";
 import styles from "./OrbitalScene.module.css";
 
-const initialPitch = .93;
-const initialRoll = .40;
 const clampPitch = (angle: number) => Math.max(-1.48, Math.min(1.48, angle));
 
-type SceneControls = { toggle: () => void; reset: () => void; suspend: (value: boolean) => void };
+type SceneControls = { toggle: () => void; reset: () => void; focus: () => void; suspend: (value: boolean) => void };
 
 export default function OrbitalScene({ suspended = false }: { suspended?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -26,7 +24,7 @@ export default function OrbitalScene({ suspended = false }: { suspended?: boolea
     let running = !motion.matches;
     let inView = true, suspended = false;
     let width = 0, height = 0, elapsed = 0, lastDraw = 0;
-    let yaw = 0, pitch = initialPitch;
+    let yaw = homeCamera.yaw, pitch = homeCamera.pitch;
     let frame: number | null = null;
     let drag: { id: number; x: number; y: number } | null = null;
     let painted = false;
@@ -35,9 +33,9 @@ export default function OrbitalScene({ suspended = false }: { suspended?: boolea
     function paint() {
       if (!isVisible() || !ctx) return;
       const camera = {
-        yaw: yaw + elapsed * .046,
-        pitch: pitch + .055 * Math.sin(elapsed * .26),
-        roll: initialRoll + .042 * Math.sin(elapsed * .16),
+        yaw: yaw + .065 * Math.sin(elapsed * .16),
+        pitch: pitch + .025 * Math.sin(elapsed * .26),
+        roll: homeCamera.roll + .018 * Math.sin(elapsed * .16),
       };
       drawOrbit(ctx, width, height, camera, elapsed);
       if (!painted) { painted = true; setReady(true); }
@@ -77,8 +75,8 @@ export default function OrbitalScene({ suspended = false }: { suspended?: boolea
       refresh();
     }
     function reset() {
-      yaw = 0;
-      pitch = initialPitch;
+      yaw = homeCamera.yaw;
+      pitch = homeCamera.pitch;
       elapsed = 0;
       refresh();
     }
@@ -116,6 +114,7 @@ export default function OrbitalScene({ suspended = false }: { suspended?: boolea
     controls.current = {
       toggle: () => setRunning(!running),
       reset,
+      focus: () => { yaw = homeCamera.yaw; pitch = homeCamera.pitch; refresh(); },
       suspend: value => { suspended = value; refresh(); },
     };
     const motionChange = () => setRunning(!motion.matches);
@@ -154,11 +153,12 @@ export default function OrbitalScene({ suspended = false }: { suspended?: boolea
   useEffect(() => { controls.current?.suspend(suspended); }, [suspended]);
 
   return <div className={styles.scene}>
-    {!ready && <img className={styles.fallback} src="/orbital-field.svg" width="660" height="430" alt="A tilted lime wireframe torus and its orbital paths."/>}
+    {!ready && <img className={styles.fallback} src="/earth-orbital-field.svg" width="660" height="430" alt="Earth facing Southeast Asia, with a Bangkok marker and an orbiting satellite."/>}
     <canvas ref={canvasRef} className={styles.canvas} tabIndex={ready ? 0 : -1}
-      role="img" aria-label="Interactive 3D wireframe torus with an orbiting CubeSat"
+      role="img" aria-label="Interactive 3D Earth with a Bangkok, Thailand marker and an orbiting CubeSat"
       aria-hidden={!ready} aria-describedby={instructions}/>
     {ready && <>
+      <div className={styles.location}><span>BASED IN</span><strong>Bangkok, Thailand</strong></div>
       <div id={instructions} className={styles.hint}>
         <svg aria-hidden="true" width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.2"><ellipse cx="10" cy="10" rx="8" ry="3.7" transform="rotate(-28 10 10)"/><circle cx="10" cy="10" r="2"/><circle cx="16.5" cy="5.7" r="1.4" fill="currentColor"/></svg>
         Drag to orbit<span className={styles.sr}>. Use the arrow keys to turn the model when focused.</span>
@@ -170,6 +170,7 @@ export default function OrbitalScene({ suspended = false }: { suspended?: boolea
         <button type="button" aria-label="Reset orbital view" title="Reset orbital view" onClick={() => controls.current?.reset()}>
           <svg aria-hidden="true" width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4 9a6 6 0 1 1 1.6 5.3M4 4.6V9h4.4"/></svg>
         </button>
+        <button type="button" className={styles.focus} onClick={() => controls.current?.focus()} aria-label="Focus Bangkok on Earth"><svg aria-hidden="true" width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4"><circle cx="10" cy="10" r="5"/><circle cx="10" cy="10" r="1.5"/><path d="M10 1v4m0 10v4M1 10h4m10 0h4"/></svg>Focus Bangkok</button>
       </div>
     </>}
   </div>;

@@ -204,3 +204,5 @@ footer { border-top: 1px solid #272a24; }
 .recruiter-links > a:hover { color: var(--lime); }
 @media(min-width:701px) and (max-width:1100px) { .masthead-inner { height: auto; min-height: 105px; flex-wrap: wrap; padding-top: 15px; row-gap: 9px; } .masthead nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; } .masthead nav a { padding-bottom: 12px; } .masthead nav a::after { bottom: 5px; } }
 @media(max-width:390px) { .masthead nav a { font-size: 11px; } }
+
+@media(max-width:700px) { .orbit-figure figcaption { bottom: 53px; right: 15px; font-size: 7px; } }
