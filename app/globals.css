@@ -21,7 +21,7 @@ button { color: inherit; }
 .portfolio { min-height: 100vh; display: flex; flex-direction: column; }
 .skip { position: fixed; top: -100px; left: 10px; background: var(--lime); color: #161a10; padding: 10px 15px; z-index: 50; }
 .skip:focus { top: 8px; }
-.masthead { border-bottom: 1px solid #272a26; }
+.masthead { position: sticky; top: 0; z-index: 20; background: var(--paper); border-bottom: 1px solid #272a26; }
 .masthead-inner, .page-body, .footer-inner { width: min(1320px, 90%); margin-inline: auto; }
 .masthead-inner { height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 650; letter-spacing: -.065em; font-size: 23px; line-height: 1; white-space: nowrap; }
@@ -61,7 +61,7 @@ button { color: inherit; }
 .top-chat svg:first-child { color: var(--lime); }
 .top-chat svg:last-child { color: #9b9f94; }
 .page-body { flex: 1; padding-top: clamp(27px, 3.4vw, 49px); }
-.editor { view-transition-name: portfolio-window; overflow: hidden; background: var(--surface); border: 1px solid #353931; border-radius: 11px; box-shadow: 0 15px 45px #0003; scroll-margin-top: 12px; }
+.editor { view-transition-name: portfolio-window; overflow: hidden; background: var(--surface); border: 1px solid #353931; border-radius: 11px; box-shadow: 0 15px 45px #0003; scroll-margin-top: 125px; }
 .editor:focus { outline: none; }
 .editor.expanded { position: fixed; inset: 12px; z-index: 30; overflow: auto; box-shadow: 0 0 0 40px #070907ec; }
 .editor.expanded .hero { min-height: calc(100dvh - 110px); }
