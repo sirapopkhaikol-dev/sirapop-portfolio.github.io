@@ -36,7 +36,7 @@
 .chapter .benefits p { font-size: 14px; margin: 0; line-height: 1.65; color: #b3c1a7; }
 .team { width: 100%; border: none; padding: 0; background: transparent; text-align: left; color: #bbcba9; }
 .team img { width: 100%; height: auto; max-height: 560px; object-fit: contain; display: block; border: 1px solid #4a593c; border-radius: 5px; background: #161d11; }
-.team > span { display: flex; justify-content: space-between; align-items: center; gap: 10px; font: 10px/1.6 var(--font-mono); padding-top: 10px; }
+.team > span:not([data-image-frame]) { display: flex; justify-content: space-between; align-items: center; gap: 10px; font: 10px/1.6 var(--font-mono); padding-top: 10px; }
 @media(max-width:440px) { .pipeline { gap: 24px 21px; padding: 18px 10px; } .pipeline li { padding-inline: 7px; } .pipeline strong { font-size: 10px; } .pipeline small { font-size: 8px; } .diagramTitle > span { display: none; } .auth span { margin-left: 0; } }
 @media(prefers-reduced-motion:no-preference) {
   .pipeline li[data-active="true"] { animation: highlight .45s ease-out; }

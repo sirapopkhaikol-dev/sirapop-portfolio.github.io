@@ -13,7 +13,7 @@
 .photos { display: grid; grid-template-columns: 1.45fr 1fr; align-items: start; gap: 13px; margin: 25px 0 29px; }
 .photos button { padding: 0; border: none; background: transparent; text-align: left; color: #b4c7a1; min-width: 0; }
 .photos img { width: 100%; height: auto; aspect-ratio: 4/3; object-fit: contain; display: block; border: 1px solid #4c5d40; border-radius: 5px; background: #182013; }
-.photos span { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 9px; font: 10px/1.5 var(--font-mono); }
+.photos button > span:not([data-image-frame]) { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 9px; font: 10px/1.5 var(--font-mono); }
 .photos button:hover img { border-color: #c2e19b; }
 .sectionHeading { display: flex; gap: 11px; align-items: center; margin-bottom: 13px; }
 .sectionHeading svg { color: #bbd99d; flex: none; }
@@ -27,5 +27,5 @@
   .chapter .degrees h3 { font-size: 16px; }
   .degrees span { font-size: 8px; }
   .photos { gap: 9px; grid-template-columns: 1fr 1fr; }
-  .photos span { font-size: 9px; }
+  .photos button > span:not([data-image-frame]) { font-size: 9px; }
 }

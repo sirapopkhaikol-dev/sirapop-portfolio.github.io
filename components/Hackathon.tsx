@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingImage from "./LoadingImage";
 import { sitePath } from "./sitePath";
 import { useEffect, useId, useRef, useState } from "react";
 import Icon from "./Icon";
@@ -41,7 +42,7 @@ export default function Hackathon() {
     <div className={styles.gallery}>
       {media.map((item, index) => <button type="button" key={item.src} className={index === 0 ? styles.team : styles.certificate}
         aria-label={"Enlarge " + item.label} aria-haspopup="dialog" onClick={() => setImage(index)}>
-        <div className={styles.photo}><img src={sitePath(item.src)} alt={item.alt} loading="lazy"/></div>
+        <div className={styles.photo}><LoadingImage fill src={sitePath(item.src)} alt={item.alt} loading="lazy"/></div>
         <span>{item.label}<Icon name="upRight" size={13}/></span>
       </button>)}
     </div>
@@ -67,7 +68,7 @@ export default function Hackathon() {
         if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) setImage(null);
       }}>
       <button type="button" aria-label="Close AiHack image" onClick={() => setImage(null)}><Icon name="close" size={20}/></button>
-      {selected && <figure><img src={sitePath(selected.src)} alt={selected.alt}/><figcaption id={captionId}>{selected.label}</figcaption></figure>}
+      {selected && <figure><LoadingImage src={sitePath(selected.src)} alt={selected.alt}/><figcaption id={captionId}>{selected.label}</figcaption></figure>}
     </dialog>
   </div>;
 }

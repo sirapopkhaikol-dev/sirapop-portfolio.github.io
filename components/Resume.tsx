@@ -1,3 +1,4 @@
+import LoadingImage from "./LoadingImage";
 import { sitePath } from "./sitePath";
 import Icon from "./Icon";
 import { contactDetails } from "./contactDetails";
@@ -19,7 +20,7 @@ export default function Resume({ portrait, onContact }: { portrait?: string; onC
     <div className={styles.toolbar}><span><Icon name="file" size={15}/> RÉSUMÉ / WEB EDITION</span><a href={sitePath("/resume.pdf")}  target="_blank" rel="noopener noreferrer">Open original PDF <Icon name="upRight" size={13}/></a></div>
     <header className={styles.header}>
       <div><div className={styles.kicker}>SOFTWARE · SYSTEMS · CONTINUOUS LEARNING</div><h1 id="resume-name">Sirapop Khaikol<span>.</span></h1><p className={styles.role}>Software Developer</p></div>
-      {portrait && <div className={styles.portrait}><img src={sitePath(portrait)} alt="Sirapop Khaikol" width="106" height="120"/></div>}
+      {portrait && <div className={styles.portrait}><LoadingImage compact src={sitePath(portrait)} alt="Sirapop Khaikol" width="106" height="120"/></div>}
     </header>
     <p className={styles.summary}>Software developer with practical experience in API development, frontend and backend troubleshooting, and systems integration. I build web applications that connect data to useful interfaces, with a focus on reliability, performance, and understanding the system behind the code.</p>
     <div className={styles.actions}><a className="primary-button" href={sitePath("/resume.pdf")}  download="Sirapop-Khaikol-Resume.pdf"><Icon name="download" size={16}/>Download résumé PDF</a><a className="secondary-button" href={sitePath("/#contact")}  onClick={event => { event.preventDefault(); onContact(); }}><Icon name="mail" size={16}/>Contact me</a><span>Original document · 2 pages · PDF</span></div>

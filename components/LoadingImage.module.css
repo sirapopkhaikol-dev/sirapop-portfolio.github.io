@@ -1,0 +1,14 @@
+.frame { position: relative; display: block; width: 100%; max-width: 100%; border-radius: inherit; overflow: hidden; line-height: 0; }
+:where(.frame) > img { display: block; max-width: 100%; height: auto; }
+.fill { height: 100%; }
+.frame.fill > img { width: 100%; height: 100%; }
+.frame[data-image-state="loading"] > img,.frame[data-image-state="error"] > img { opacity: 0; }
+.placeholder { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: #172012; background-image: radial-gradient(#718b4a28 .7px,transparent .7px); background-size: 12px 12px; color: #ccdfb1; text-align: center; }
+.spinner { width: 24px; height: 24px; border: 2px solid #52683b; border-top-color: #c3f77b; border-radius: 50%; flex: none; }
+.message { font: 10px/1.6 var(--font-mono); letter-spacing: .02em; }
+.note { font: 8px/1.7 var(--font-mono); color: #a3b48f; }
+.error { display: grid; place-items: center; width: 24px; height: 24px; border: 1px solid #b4b982; border-radius: 50%; color: #d2d4a2; font: 13px/1 var(--font-mono); }
+.frame[data-compact="true"] .placeholder { padding: 3px; gap: 0; }
+.frame[data-compact="true"] .spinner { width: 14px; height: 14px; }
+.frame[data-compact="true"] .message { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@media(prefers-reduced-motion:no-preference) { .spinner { animation: spin 1.2s linear infinite; } .frame[data-image-state="ready"] > img { animation: reveal .2s ease-out both; } @keyframes spin { to { transform: rotate(360deg); } } @keyframes reveal { from { opacity: .3; } to { opacity: 1; } } }

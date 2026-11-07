@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingImage from "./LoadingImage";
 import { sitePath } from "./sitePath";
 import { useState } from "react";
 import Icon from "./Icon";
@@ -34,7 +35,7 @@ export default function Bachelors() {
     <a className={styles.program} href="https://www.iote.kmitl.ac.th/dual-degree/" target="_blank" rel="noopener noreferrer">KMITL dual-degree program <Icon name="upRight" size={12}/></a>
     <div className={styles.photos}>
       {photos.map(photo => <button type="button" key={photo.src} onClick={() => setImage(photo)} aria-label={"Enlarge " + photo.label} aria-haspopup="dialog">
-        <img src={sitePath(photo.src)} alt={photo.alt} loading="lazy" width="1448" height="1086"/>
+        <LoadingImage src={sitePath(photo.src)} alt={photo.alt} loading="lazy" width="1448" height="1086"/>
         <span>{photo.label}<Icon name="upRight" size={13}/></span>
       </button>)}
     </div>

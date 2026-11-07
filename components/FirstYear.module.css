@@ -12,8 +12,8 @@
 .memories img { display: block; width: 100%; height: auto; object-fit: contain; border-radius: 2px; }
 .friends { align-self: start; transform: rotate(-1.3deg); }
 .night { margin-top: 40px; transform: rotate(2deg); }
-.memories button > span { display: flex; align-items: center; gap: 7px; padding: 10px 2px 3px; font: 8px/1.5 var(--font-mono); }
-.memories button > span > svg { margin-left: auto; flex: none; }
+.memories button > span:not([data-image-frame]) { display: flex; align-items: center; gap: 7px; padding: 10px 2px 3px; font: 8px/1.5 var(--font-mono); }
+.memories button > span:not([data-image-frame]) > svg { margin-left: auto; flex: none; }
 .number { display: inline-grid; place-items: center; width: 19px; height: 19px; border: 1px solid #8fae68; border-radius: 50%; color: #d5efb9; font: 9px/1 var(--font-mono); flex: none; }
 .memoryNote { display: flex; gap: 10px; align-items: flex-start; padding: 14px 0 21px; border-bottom: 1px solid #3e4b32; }
 .memoryNote > svg { flex: none; margin-top: 3px; color: #b8c89b; }
@@ -45,5 +45,5 @@
 .reflection div > span { color: #acbd93; font: 8px/1.6 var(--font-mono); letter-spacing: .05em; }
 .reflection h3 { font-size: clamp(29px,3vw,37px); line-height: 1.12; font-weight: 550; letter-spacing: -.045em; margin: 12px 0 16px; }
 .chapter .reflection p { color: #b6c4aa; font-size: 14px; line-height: 1.7; margin: 0; }
-@media(max-width:450px) { .memories { gap: 9px; } .memories button > span { font-size: 7px; gap: 4px; } .memories .number { width: 16px; height: 16px; font-size: 8px; } .steps { gap: 6px; padding-inline: 9px; } .steps button { font-size: 8px; } .returnPath { font-size: 7px; margin-inline: 17px; } .detail { min-height: 270px; } .loopHeader small { font-size: 7px; } }
+@media(max-width:450px) { .memories { gap: 9px; } .memories button > span:not([data-image-frame]) { font-size: 7px; gap: 4px; } .memories .number { width: 16px; height: 16px; font-size: 8px; } .steps { gap: 6px; padding-inline: 9px; } .steps button { font-size: 8px; } .returnPath { font-size: 7px; margin-inline: 17px; } .detail { min-height: 270px; } .loopHeader small { font-size: 7px; } }
 @media(prefers-reduced-motion:no-preference) { .memories button { transition: transform .25s ease,border-color .25s ease; } .memories button:hover { transform: rotate(0) translateY(-3px); border-color: #adc981; } .detail { animation: reveal .25s ease-out both; } .returnPath > span { animation: return 1s ease-out both; } .detail code > i { animation: blink 1.2s step-end 3; } @keyframes reveal { from { opacity: .25; transform: translateY(4px); } to { opacity: 1; transform: none; } } @keyframes return { from { left: 90%; opacity: .1; } to { left: 10%; opacity: 1; } } @keyframes blink { 50% { opacity: 0; } } }

@@ -49,3 +49,9 @@ The navbar player uses “Bittersweet” by Kevin MacLeod (incompetech.com), ISR
 Visible credit and a license link appear in the player and footer. The recording is unmodified. Source, license, retrieval date, and file hash are recorded in `public/audio/CREDITS.txt`. License: https://creativecommons.org/licenses/by/4.0/ .
 
 Playback is off by default and starts only after an explicit Play click. Audio loads on demand, initially at 12% volume. The loop continues through in-app navigation; a full reload starts silent again. Visitors can pause or change the volume. Edit `components/AmbientMusic.tsx` to change the player.
+
+## Image loading
+
+Public images use `components/LoadingImage.tsx` for a dark loading placeholder, a fade-in after decoding, and a fallback message if the file cannot load. Small avatars use a compact spinner. Animation respects reduced-motion preferences; there is no artificial loading delay.
+
+`components/imageDimensions.ts` reserves space for the current assets. When adding or replacing an image with different dimensions, update its entry or pass explicit `width` and `height` to `LoadingImage`.

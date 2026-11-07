@@ -15,7 +15,7 @@
 .photo img { width: 100%; height: 100%; display: block; object-fit: contain; transition: transform .25s; }
 .team .photo { height: calc(100% - 30px); min-height: 200px; }
 .certificate .photo { aspect-ratio: 1.42; background: #eee; }
-.gallery button > span { display: flex; justify-content: space-between; align-items: center; gap: 8px; color: #acb7a1; font: 10px/1.5 var(--font-mono); padding-top: 8px; }
+.gallery button > span:not([data-image-frame]) { display: flex; justify-content: space-between; align-items: center; gap: 8px; color: #acb7a1; font: 10px/1.5 var(--font-mono); padding-top: 8px; }
 .gallery button:hover .photo { border-color: #b9d78c; }
 .gallery button:hover img { transform: scale(1.025); }
 .return { border-block: 1px solid #30372c; margin-bottom: 33px; }
@@ -40,7 +40,7 @@
   .gallery { gap: 10px; }
   .result { gap: 11px; } .result strong { font-size: 12px; }
   .rank { font-size: 47px; }
-  .gallery button > span { font-size: 9px; }
+  .gallery button > span:not([data-image-frame]) { font-size: 9px; }
   .return summary > span { display: block; margin-left: 17px; margin-top: 4px; }
   .sectionHeading h3 { font-size: 19px; }
 }

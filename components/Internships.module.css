@@ -13,11 +13,11 @@
 .chapter h3 { font-size: 22px; line-height: 1.25; font-weight: 550; letter-spacing: -.035em; margin: 0 0 13px; }
 .evidence { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-block: 24px; }
 .media { display: block; width: 100%; min-width: 0; text-align: left; padding: 0; border: none; color: #b4c5a7; background: transparent; }
-.media > img { display: block; width: 100%; aspect-ratio: 3/4; object-fit: contain; border: 1px solid #4a573e; border-radius: 5px; background: #12160f; }
-.media > span { display: flex; align-items: center; justify-content: space-between; gap: 7px; font: 10px/1.5 var(--font-mono); padding-top: 9px; }
-.media > span svg { flex: none; }
+.media img { display: block; width: 100%; aspect-ratio: 3/4; object-fit: contain; border: 1px solid #4a573e; border-radius: 5px; background: #12160f; }
+.media > span:not([data-image-frame]) { display: flex; align-items: center; justify-content: space-between; gap: 7px; font: 10px/1.5 var(--font-mono); padding-top: 9px; }
+.media > span:not([data-image-frame]) svg { flex: none; }
 .media:hover > img { border-color: #b0d884; }
-.employer[data-company="1"] .media > img { aspect-ratio: 1.35; }
+.employer[data-company="1"] .media img { aspect-ratio: 1.35; }
 .sectionTitle { display: flex; align-items: center; gap: 11px; margin-top: 30px; margin-bottom: 12px; }
 .sectionTitle > svg { color: #b7da90; flex: none; }
 .sectionTitle h3 { margin: 0; font-size: 21px; }
@@ -25,8 +25,8 @@
 .note a { color: #c8dea8; text-decoration: underline; text-underline-offset: 3px; }
 .showcase { margin-block: 24px; padding: 10px; background: #151c11; border: 1px solid #38482c; border-radius: 7px; }
 .screen { width: 100%; border: none; padding: 0; text-align: left; color: #d8ecc4; background: transparent; }
-.screen > img { width: 100%; height: auto; display: block; aspect-ratio: 2.09; object-fit: contain; border-radius: 3px; background: #eaf0f7; }
-.screen > span { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 15px; padding: 12px 3px; letter-spacing: -.02em; }
+.screen img { width: 100%; height: auto; display: block; aspect-ratio: 2.09; object-fit: contain; border-radius: 3px; background: #eaf0f7; }
+.screen > span:not([data-image-frame]) { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 15px; padding: 12px 3px; letter-spacing: -.02em; }
 .screenNav { display: flex; gap: 5px; flex-wrap: wrap; padding-bottom: 10px; }
 .screenNav button { display: inline-flex; align-items: center; gap: 7px; padding: 6px 8px; border: 1px solid #425d32; border-radius: 4px; background: #1c2a14; color: #b8cda7; font: 9px/1.5 var(--font-mono); }
 .screenNav button span { display: grid; place-items: center; flex: 0 0 16px; width: 16px; height: 16px; border: 1px solid #667f50; border-radius: 50%; color: #d3edb9; font-size: 9px; }
@@ -35,7 +35,7 @@
 .reference { color: #aabc9b; border-block: 1px solid #35472a; margin-block: 20px; padding-block: 11px; }
 .reference summary { font: 11px/1.7 var(--font-mono); cursor: pointer; }
 .reference .media { margin-top: 15px; }
-.reference .media > img { aspect-ratio: 2.35; background: white; }
+.reference .media img { aspect-ratio: 2.35; background: white; }
 .reflection { display: flex; gap: 15px; border-top: 1px solid #435536; padding-top: 25px; margin-top: 30px; }
 .reflection > svg { flex: none; color: #d8cf9e; margin-top: 3px; }
 .reflection h3 { font-size: 22px; }
@@ -46,7 +46,7 @@
   .employers small { font-size: 8px; }
   .employers button > svg { width: 15px; }
   .evidence { gap: 10px; }
-  .media > span { font-size: 9px; }
+  .media > span:not([data-image-frame]) { font-size: 9px; }
   .chapter h3 { font-size: 21px; }
 }
 @media(prefers-reduced-motion:no-preference) {

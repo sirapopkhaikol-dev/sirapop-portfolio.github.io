@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingImage from "./LoadingImage";
 import { sitePath, withoutBasePath } from "./sitePath";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
@@ -120,7 +121,7 @@ export default function Portfolio({ portrait, initialTab = "overview" }: { portr
       <header className="masthead"><div className="masthead-inner">
         <div className="identity">
           {portrait && <button type="button" className="profile-trigger" aria-haspopup="dialog" aria-label="View Sirapop’s photo and profile" title="View Sirapop’s profile" onClick={() => setProfileOpen(true)}>
-            <img src={sitePath(portrait)} alt="" width="40" height="40"/>
+            <LoadingImage fill compact src={sitePath(portrait)} alt="" width="40" height="40"/>
             <span aria-hidden="true"><Icon name="upRight" size={9}/></span>
           </button>}
           <a className="brand" href={sitePath("/#overview")}  aria-label="Sirapop portfolio home" onClick={(e) => { e.preventDefault(); navigate("overview"); }}>
