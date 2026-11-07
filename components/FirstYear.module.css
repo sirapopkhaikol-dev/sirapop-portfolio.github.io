@@ -1,0 +1,49 @@
+.chapter { color: #eff0e9; }
+.eyebrow { display: flex; align-items: center; gap: 8px; color: #adc68e; font: 9px/1.7 var(--font-mono); letter-spacing: .07em; margin-bottom: 15px; }
+.eyebrow > span { width: 6px; height: 6px; border-radius: 50%; background: #c3f76b; box-shadow: 0 0 0 4px #c3f76b13; }
+.chapter > h2 { font-size: clamp(34px,4vw,50px); max-width: none; margin: 0 0 23px; }
+.chapter > h2 > span { color: #c3f76b; }
+.location { display: flex; align-items: center; gap: 12px; border-left: 2px solid #819e5c; padding: 4px 0 4px 13px; margin-bottom: 23px; color: #b7d198; }
+.location > svg { flex: none; }
+.location strong { display: block; font-size: 13px; font-weight: 500; line-height: 1.5; color: #d8e4ca; }
+.location div > span { display: block; color: #9eaf90; font: 9px/1.7 var(--font-mono); margin-top: 4px; }
+.memories { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); align-items: end; gap: 12px; margin: 27px 0 17px; }
+.memories button { min-width: 0; padding: 6px; text-align: left; color: #bfd4a9; border: 1px solid #485639; background: #192014; border-radius: 6px; cursor: zoom-in; }
+.memories img { display: block; width: 100%; height: auto; object-fit: contain; border-radius: 2px; }
+.friends { align-self: start; transform: rotate(-1.3deg); }
+.night { margin-top: 40px; transform: rotate(2deg); }
+.memories button > span { display: flex; align-items: center; gap: 7px; padding: 10px 2px 3px; font: 8px/1.5 var(--font-mono); }
+.memories button > span > svg { margin-left: auto; flex: none; }
+.number { display: inline-grid; place-items: center; width: 19px; height: 19px; border: 1px solid #8fae68; border-radius: 50%; color: #d5efb9; font: 9px/1 var(--font-mono); flex: none; }
+.memoryNote { display: flex; gap: 10px; align-items: flex-start; padding: 14px 0 21px; border-bottom: 1px solid #3e4b32; }
+.memoryNote > svg { flex: none; margin-top: 3px; color: #b8c89b; }
+.chapter .memoryNote p { color: #a7b597; font: 11px/1.8 var(--font-mono); margin: 0; }
+.sectionHeading { display: flex; align-items: center; gap: 11px; margin: 27px 0 14px; }
+.sectionHeading > svg { color: #b4cd96; flex: none; }
+.sectionHeading h3 { font-size: 23px; line-height: 1.3; letter-spacing: -.035em; font-weight: 550; margin: 0; }
+.loop { margin-top: 23px; border: 1px solid #465b35; border-radius: 7px; overflow: hidden; background: #151d10; }
+.loopHeader { display: flex; justify-content: space-between; gap: 10px; padding: 14px; background: #202c17; border-bottom: 1px solid #415333; color: #dae9ca; font: 11px/1.6 var(--font-mono); }
+.loopHeader small { color: #99b282; font-size: 8px; align-self: center; }
+.chapter .intro { color: #aebf9b; font: 10px/1.7 var(--font-mono); padding: 17px 14px 0; margin: 0; }
+.steps { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 8px; padding: 17px 14px 0; background-image: radial-gradient(#50603d55 .7px,transparent .7px); background-size: 13px 13px; }
+.steps button { position: relative; min-width: 0; display: flex; align-items: center; flex-direction: column; gap: 10px; border: 1px solid #546b3f; border-radius: 5px; background: #1e2b16; padding: 12px 3px; color: #b7ce9d; font: 9px/1.6 var(--font-mono); }
+.steps button > svg { margin: 2px 0; }
+.steps button[aria-pressed="true"] { background: #344b23; border-color: #c3e49a; color: #e5f9ce; }
+.steps button:not(:last-child)::after { content: '→'; position: absolute; right: -9px; top: 55%; color: #9bb77e; z-index: 1; font: 12px var(--font-mono); }
+.returnPath { position: relative; padding: 12px 5px 0; margin: 0 24px 17px; color: #9eb385; border-bottom: 1px dashed #637e48; border-inline: 1px dashed #637e48; border-radius: 0 0 10px 10px; text-align: center; font: 8px/1.8 var(--font-mono); }
+.returnPath > span { display: block; height: 3px; width: 18px; background: #c3f76b; position: absolute; bottom: -2px; left: 10%; }
+.detail { padding: 18px 16px; border-block: 1px solid #3e5230; background: #1c2815; min-height: 230px; }
+.detail > span { font: 8px/1.6 var(--font-mono); color: #a6bf8b; letter-spacing: .05em; }
+.detail h4 { font-size: 22px; letter-spacing: -.03em; font-weight: 550; margin: 10px 0; }
+.chapter .detail p { margin: 0 0 15px; font-size: 13px; line-height: 1.7; color: #bbcdae; }
+.detail code { display: block; overflow-wrap: anywhere; padding: 11px 10px; border-left: 2px solid #9fc479; background: #26351d; color: #d5e9b7; font: 10px/1.8 var(--font-mono); }
+.detail code > span { color: #a3ca73; }
+.detail code > i { display: inline-block; margin-left: 5px; height: 11px; width: 5px; background: #b7df8a; vertical-align: middle; }
+.next { display: flex; align-items: center; gap: 10px; margin: 14px; border: 1px solid #8ba56b; border-radius: 4px; padding: 9px 12px; background: #304421; color: #d5edbb; font: 10px/1.5 var(--font-mono); }
+.reflection { display: flex; align-items: flex-start; gap: 14px; margin-top: 28px; padding-top: 25px; border-top: 1px solid #455635; }
+.reflection > svg { color: #c9c991; flex: none; }
+.reflection div > span { color: #acbd93; font: 8px/1.6 var(--font-mono); letter-spacing: .05em; }
+.reflection h3 { font-size: clamp(29px,3vw,37px); line-height: 1.12; font-weight: 550; letter-spacing: -.045em; margin: 12px 0 16px; }
+.chapter .reflection p { color: #b6c4aa; font-size: 14px; line-height: 1.7; margin: 0; }
+@media(max-width:450px) { .memories { gap: 9px; } .memories button > span { font-size: 7px; gap: 4px; } .memories .number { width: 16px; height: 16px; font-size: 8px; } .steps { gap: 6px; padding-inline: 9px; } .steps button { font-size: 8px; } .returnPath { font-size: 7px; margin-inline: 17px; } .detail { min-height: 270px; } .loopHeader small { font-size: 7px; } }
+@media(prefers-reduced-motion:no-preference) { .memories button { transition: transform .25s ease,border-color .25s ease; } .memories button:hover { transform: rotate(0) translateY(-3px); border-color: #adc981; } .detail { animation: reveal .25s ease-out both; } .returnPath > span { animation: return 1s ease-out both; } .detail code > i { animation: blink 1.2s step-end 3; } @keyframes reveal { from { opacity: .25; transform: translateY(4px); } to { opacity: 1; transform: none; } } @keyframes return { from { left: 90%; opacity: .1; } to { left: 10%; opacity: 1; } } @keyframes blink { 50% { opacity: 0; } } }

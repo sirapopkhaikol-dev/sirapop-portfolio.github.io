@@ -7,8 +7,10 @@ import Internships from "./Internships";
 import MoneyMonkey from "./MoneyMonkey";
 import Bachelors from "./Bachelors";
 import Masters from "./Masters";
+import FirstYear from "./FirstYear";
 
 const detailedChapters: Record<string, ComponentType | undefined> = {
+  "First year at university": FirstYear,
   Hackathon,
   Internship: Internships,
   Projects: MoneyMonkey,
