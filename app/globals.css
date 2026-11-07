@@ -209,3 +209,6 @@ footer { border-top: 1px solid #272a24; }
 
 .header-tools { display: flex; align-items: center; gap: 8px; }
 @media(max-width:700px) { .header-tools .top-chat { width: 34px; height: 34px; padding: 0; } .header-tools .top-chat span,.header-tools .top-chat svg:last-child { display: none; } }
+
+.music-credit { flex-wrap: wrap; font-size: 9px; line-height: 1.8; }
+.music-credit a:hover { color: var(--lime); text-decoration: underline; }

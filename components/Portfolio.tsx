@@ -181,7 +181,7 @@ export default function Portfolio({ portrait, initialTab = "overview" }: { portr
           <div className="recruiter-links"><span>Continue the conversation</span><a href={sitePath("/contact/")}  onClick={event => { event.preventDefault(); navigate("contact"); }}><Icon name="mail" size={14}/>Contact <Icon name="upRight" size={12}/></a><a href={sitePath("/resume/")}  onClick={event => { event.preventDefault(); navigate("resume"); }}><Icon name="file" size={14}/>Read résumé <Icon name="arrow" size={13}/></a></div>
         </section>
       </main>
-      <footer><div className="footer-inner"><span>© Sirapop Khaikol</span><span><Icon name="code" size={13}/> Built with Next.js &amp; TypeScript</span></div></footer>
+      <footer><div className="footer-inner"><span>© Sirapop Khaikol</span><span className="music-credit">Music: <a href="https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1700004" target="_blank" rel="noopener noreferrer">Bittersweet — Kevin MacLeod (incompetech.com)</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a></span><span><Icon name="code" size={13}/> Built with Next.js &amp; TypeScript</span></div></footer>
       <Assistant open={assistantOpen} onClose={closeAssistant}/>
       {portrait && <ProfileDialog portrait={portrait} open={profileOpen} onClose={closeProfile}/>}
       <div ref={cursor} className="cursor-aura" aria-hidden="true"><span/></div>

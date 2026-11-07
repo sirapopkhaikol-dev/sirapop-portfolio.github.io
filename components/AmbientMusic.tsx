@@ -46,7 +46,7 @@ export default function AmbientMusic() {
   }
 
   return <div className={styles.music} ref={root}>
-    <audio ref={audio} src={sitePath("/audio/floating-in-space.wav")} preload="none" loop
+    <audio ref={audio} src={sitePath("/audio/bittersweet-kevin-macleod.mp3")} preload="none" loop
       onPlaying={() => setPlaying(true)} onPause={() => setPlaying(false)}
       onError={() => { setPlaying(false); setBusy(false); setError("Audio could not load. Please try again later."); }}/>
     <button ref={trigger} className={styles.trigger} type="button" aria-label="Ambient music controls" aria-expanded={open} aria-controls={panelId} onClick={() => setOpen(value => !value)}>
@@ -54,13 +54,13 @@ export default function AmbientMusic() {
     </button>
     {open && <section className={styles.panel} id={panelId} aria-label="Ambient music">
       <div className={styles.heading}><span>ORBITAL SOUNDSCAPE</span><button type="button" aria-label="Close music controls" onClick={() => { setOpen(false); trigger.current?.focus(); }}><Icon name="close" size={16}/></button></div>
-      <h2>Floating in Space</h2><p className={styles.artist}>by Umplix · Ambient / Space</p>
+      <h2>Bittersweet</h2><p className={styles.artist}>by Kevin MacLeod · Calming / Reflective</p>
       <button type="button" className={styles.play} disabled={busy} onClick={togglePlayback} aria-label={playing ? "Pause ambient music" : "Play ambient music"}>
         <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="currentColor">{playing ? <path d="M4 3h2.5v10H4zm5.5 0H12v10H9.5z"/> : <path d="m4 2 9 6-9 6z"/>}</svg>{busy ? "Loading…" : playing ? "Pause music" : "Play music"}
       </button>
       <label className={styles.volume}>Volume <output>{volume}%</output><input aria-label="Music volume" type="range" min="0" max="100" value={volume} onChange={event => { const next = Number(event.target.value); setVolume(next); if (audio.current) audio.current.volume = next / 100; }}/></label>
       <p className={styles.status} role="status">{error || (playing ? "A quiet backdrop for exploring the portfolio." : "Optional sound. Starts off, at a quiet volume.")}</p>
-      <div className={styles.credit}><a href="https://opengameart.org/content/floating-in-space" target="_blank" rel="noopener noreferrer">Track & artist ↗</a><a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0 · Public domain ↗</a></div>
+      <div className={styles.credit}><p>“Bittersweet” Kevin MacLeod (<a href="https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1700004" target="_blank" rel="noopener noreferrer">incompetech.com ↗</a>)<br/>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">Creative Commons: By Attribution 4.0 ↗</a><br/><span>Original recording, unmodified.</span></p></div>
     </section>}
   </div>;
 }

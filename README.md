@@ -42,8 +42,10 @@ The workflow reads the hosting subdirectory from GitHub Pages and sets `NEXT_PUB
 For this repository the site address is https://sirapopkhaikol-dev.github.io/sirapop-portfolio.github.io/ . The latest deployment can be checked in the repository's Actions tab. Run `npm run test:paths` to check hosting-path behavior.
 
 
-## Optional ambient music
+## Optional background music
 
-The navbar player uses “Floating in Space” by Umplix, published under CC0 1.0 at https://opengameart.org/content/floating-in-space . Artist, source, license, source hash, and conversion notes are recorded in `public/audio/CREDITS.txt`.
+The navbar player uses “Bittersweet” by Kevin MacLeod (incompetech.com), ISRC USUAN1700004, listed under Creative Commons Attribution 4.0 on the official track page: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1700004 . This is copyrighted music offered under a free attribution license, not CC0 or public domain.
 
-Playback is off by default and starts only after an explicit Play click. Audio is loaded on demand, initially at 12% volume. The loop continues through in-app section navigation; a full reload starts silent again. Visitors can pause it or change the volume. Edit `components/AmbientMusic.tsx` to change the player.
+Visible credit and a license link appear in the player and footer. The recording is unmodified. Source, license, retrieval date, and file hash are recorded in `public/audio/CREDITS.txt`. License: https://creativecommons.org/licenses/by/4.0/ .
+
+Playback is off by default and starts only after an explicit Play click. Audio loads on demand, initially at 12% volume. The loop continues through in-app navigation; a full reload starts silent again. Visitors can pause or change the volume. Edit `components/AmbientMusic.tsx` to change the player.

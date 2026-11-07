@@ -17,4 +17,6 @@
 .status { font: 10px/1.7 var(--font-mono); color: #a0b48a; margin: 15px 0; }
 .credit { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding-top: 13px; border-top: 1px solid #3a4e2c; color: #a5bb8c; font: 8px/1.7 var(--font-mono); }
 .credit a:hover { text-decoration: underline; }
+.credit p { margin: 0; line-height: 1.9; }
+.credit p > span { color: #8fa37b; }
 @media(prefers-reduced-motion:no-preference) { .wave[data-playing="true"] i { animation: equalize 1.1s ease-in-out infinite alternate; } .wave[data-playing="true"] i:nth-child(2) { animation-delay: -.3s; } .wave[data-playing="true"] i:nth-child(3) { animation-delay: -.7s; } .wave[data-playing="true"] i:nth-child(4) { animation-delay: -.5s; } @keyframes equalize { from { transform: scaleY(.6); } to { transform: scaleY(1.5); } } }
