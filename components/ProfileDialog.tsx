@@ -55,7 +55,7 @@ export default function ProfileDialog({ portrait, open, onClose }: ProfileDialog
           <p className={styles.role}>Software developer</p>
           <div className={styles.bio}>
             <p>I’ve spent a year building software professionally, and I’m now pursuing my master’s degree.</p>
-            <p>I’m interested in 3D visualization for space projects. I like how turning a model can reveal something that’s hard to see from a single angle.</p>
+            <p>I enjoy turning complex ideas and data into clear, useful software. From web applications to interactive visualizations, I like understanding how things work and building tools that help people solve real problems.</p>
           </div>
         </section>
       </div>
