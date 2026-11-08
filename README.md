@@ -39,7 +39,7 @@ The workflow in `.github/workflows/pages.yml` checks and builds the static site,
 
 The workflow reads the hosting subdirectory from GitHub Pages and sets `NEXT_PUBLIC_BASE_PATH` for the build. Assets, navigation, galleries, and the PDF download use the shared `components/sitePath.ts` helper. Local development and other root-domain hosting leave this value empty.
 
-For this repository the site address is https://sirapopkhaikol-dev.github.io/sirapop-portfolio.github.io/ . The latest deployment can be checked in the repository's Actions tab. Run `npm run test:paths` to check hosting-path behavior.
+The personal-site repository is named `sirapopkhaikol-dev.github.io`, matching the GitHub account name. The public site address is https://sirapopkhaikol-dev.github.io/ . GitHub Pages reports an empty base path for this root address. The latest deployment can be checked in the repository's Actions tab. Run `npm run test:paths` to check hosting-path behavior.
 
 
 ## Optional background music
